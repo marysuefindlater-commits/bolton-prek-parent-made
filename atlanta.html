@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atlanta, saved</title>
+<meta name="description" content="A running list of Atlanta restaurants, cafés and shops to try.">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  :root{
+    --ink:#16202b;
+    --paper:#e6eaec;
+    --card:#ffffff;
+    --rule:#cfd7db;
+    --teal:#0d6b58;
+    --gold:#c8901a;
+    --muted:#657781;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:18px 14px 60px}
+
+  header{margin-bottom:14px}
+  h1{
+    font:600 27px/1.1 "Iowan Old Style",Palatino,"Palatino Linotype",Georgia,serif;
+    margin:0 0 6px;letter-spacing:-.01em;
+  }
+  .tally{color:var(--muted);font-size:13.5px}
+  .tally b{color:var(--teal);font-weight:600}
+
+  #map{
+    height:330px;border-radius:3px;margin:14px 0 4px;
+    border:1px solid var(--rule);background:#dfe5e7;
+  }
+  .maphint{color:var(--muted);font-size:12px;margin:0 0 16px}
+
+  .controls{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+  input[type=search]{
+    flex:1 1 200px;min-width:0;padding:9px 11px;font-size:15px;
+    border:1px solid var(--rule);border-radius:3px;background:var(--card);color:var(--ink);
+  }
+  .toggle{
+    display:flex;align-items:center;gap:7px;padding:9px 12px;
+    border:1px solid var(--rule);border-radius:3px;background:var(--card);
+    font-size:14px;cursor:pointer;white-space:nowrap;
+  }
+  .toggle input{margin:0;accent-color:var(--teal)}
+
+  h2{
+    font:600 12.5px/1 -apple-system,sans-serif;
+    color:var(--muted);margin:26px 0 9px;
+    padding-bottom:6px;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;
+  }
+  h2 span{font-weight:400}
+
+  .row{
+    background:var(--card);border:1px solid var(--rule);
+    border-radius:3px;margin-bottom:7px;overflow:hidden;
+  }
+  .row.been{border-left:3px solid var(--teal)}
+  .head{display:flex;align-items:flex-start;gap:11px;padding:11px 12px;cursor:pointer}
+  .head:hover{background:#f6f8f8}
+  .box{
+    flex:0 0 20px;height:20px;margin-top:1px;border:1.5px solid var(--rule);
+    border-radius:3px;background:#fff;cursor:pointer;position:relative;
+  }
+  .box:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+  .been .box{background:var(--teal);border-color:var(--teal)}
+  .been .box::after{
+    content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;
+    border:solid #fff;border-width:0 2px 2px 0;transform:rotate(43deg);
+  }
+  .txt{flex:1;min-width:0}
+  .nm{font-weight:600;font-size:15.5px;letter-spacing:-.01em}
+  .been .nm{color:var(--muted)}
+  .meta{color:var(--muted);font-size:13px;margin-top:2px}
+  .flag{color:var(--gold);font-size:12.5px;margin-top:3px}
+  .chev{color:var(--rule);font-size:12px;margin-top:4px}
+
+  .panel{display:none;padding:0 12px 12px 43px;border-top:1px solid #eef1f2}
+  .row.open .panel{display:block}
+  label.nl{display:block;font-size:12.5px;color:var(--muted);margin:11px 0 5px}
+  textarea{
+    width:100%;min-height:74px;padding:9px 10px;font:14px/1.45 inherit;
+    border:1px solid var(--rule);border-radius:3px;resize:vertical;
+    background:#fcfdfd;color:var(--ink);
+  }
+  textarea:focus{outline:2px solid var(--teal);outline-offset:-1px;background:#fff}
+  .links{margin-top:9px;display:flex;gap:14px;font-size:13.5px}
+  .links a{color:var(--teal);text-decoration:none;border-bottom:1px solid #b9d5ce}
+  .links a:hover{border-bottom-color:var(--teal)}
+
+  footer{
+    margin-top:34px;padding-top:16px;border-top:1px solid var(--rule);
+    color:var(--muted);font-size:13px;
+  }
+  footer p{margin:0 0 10px;max-width:62ch}
+  .bkp{display:flex;gap:8px;flex-wrap:wrap}
+  .bkp button{
+    padding:8px 13px;font:14px inherit;cursor:pointer;color:var(--ink);
+    background:var(--card);border:1px solid var(--rule);border-radius:3px;
+  }
+  .bkp button:hover{background:#f6f8f8}
+
+  .saved{
+    position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(70px);
+    background:var(--ink);color:#fff;padding:8px 16px;border-radius:20px;
+    font-size:13px;transition:transform .22s ease;pointer-events:none;z-index:9999;
+  }
+  .saved.on{transform:translateX(-50%) translateY(0)}
+
+  .pop{font:14px/1.45 -apple-system,sans-serif;min-width:190px}
+  .pop .pn{font-weight:600;font-size:15px;margin-bottom:3px}
+  .pop .pm{color:var(--muted);font-size:12.5px;margin-bottom:8px}
+  .pop button{
+    width:100%;padding:7px;font-size:13.5px;font-family:inherit;cursor:pointer;
+    border:1px solid var(--rule);background:#fff;border-radius:3px;color:var(--ink);
+  }
+  .pop button.on{background:var(--teal);border-color:var(--teal);color:#fff}
+  .pop a{display:inline-block;margin-top:7px;color:var(--teal);font-size:13px}
+  .leaflet-popup-content-wrapper{border-radius:3px}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>Atlanta, saved</h1>
+    <div class="tally" id="tally"></div>
+  </header>
+
+  <div id="map"></div>
+  <p class="maphint">Tap a dot to mark it or jump to its notes. Filled dots are places you've been.</p>
+
+  <div class="controls">
+    <input type="search" id="q" placeholder="Search a name, area, or type">
+    <label class="toggle"><input type="checkbox" id="hide"> Hide visited</label>
+  </div>
+
+  <div id="list"></div>
+
+  <footer>
+    <p>Your checkmarks and notes are stored in this browser only. They don't travel to another phone or
+       laptop on their own — download a backup here and load it on the other device to move them across.</p>
+    <div class="bkp">
+      <button type="button" id="dl">Download backup</button>
+      <button type="button" id="up">Load a backup</button>
+      <input type="file" id="file" accept="application/json" hidden>
+    </div>
+  </footer>
+</div>
+
+<div class="saved" id="saved">Saved</div>
+
+<script>
+const P = [
+ {i:"pinklotus",n:"Pink Lotus Thai",a:"West Midtown",t:"Regional Thai, shareable plates",lat:33.7813192,lng:-84.4139024,g:"ChIJ_Rak1Y4F9YgRNaj3YiIabZ8",f:"Resy. Say something about fish sauce if vegetarian."},
+ {i:"lokee",n:"LO KEE",a:"West Midtown",t:"Asian fusion, The Interlock",lat:33.7848343,lng:-84.4100733,g:"ChIJ022C104F9YgRCVJ8p4cRG24",f:"Dinner only from 5pm"},
+ {i:"fum",n:"F\u00fcm",a:"West Midtown",t:"Contemporary Italian, open kitchen",lat:33.782595,lng:-84.4094727,g:"ChIJSQLNS3gF9YgRpyilirMHCmQ",f:"Closed Mon\u2013Tue"},
+ {i:"avize",n:"Avize",a:"West Midtown",t:"Modern Alpine fine dining",lat:33.7809025,lng:-84.4133924,g:"ChIJK9Gk2YYF9YgR3f-T6fTabpY",f:"Closed Sun\u2013Mon. 3hr validated parking."},
+ {i:"luckystar",n:"Lucky Star",a:"West Midtown",t:"Taiwanese caf\u00e9, cocktail omakase at night",lat:33.7834391,lng:-84.4112678,g:"ChIJecIQNQAF9YgRZh4W10eFQ1g",f:"Closed Mon\u2013Tue"},
+ {i:"flourtime",n:"Flour + Time Bakery",a:"West Midtown",t:"Vegan bakery and coffee",lat:33.7892312,lng:-84.4249029,g:"ChIJIc-ltYCp9YgRNZPxlf6V8i0",f:"Daytime only. Closed Mon\u2013Tue."},
+ {i:"oriori",n:"ORI ORI",a:"West Midtown",t:"Cr\u00eapes and melon soda, Chattahoochee Food Works",lat:33.8027943,lng:-84.4285671,g:"ChIJm1LN1CsF9YgRadw_rx14NcY",f:"Inside the food hall. Noon\u20139pm daily."},
+ {i:"summerland",n:"Summerland",a:"West Midtown",t:"Daytime brunch, Westside Market",lat:33.8105775,lng:-84.433794,g:"ChIJcZ4MKQAF9YgR8TCmyvPa9fk",f:"Wed\u2013Sun 9am\u20133pm only. Reserve \u2014 walk-ins get turned away."},
+
+ {i:"haraz",n:"Haraz Coffee House",a:"Midtown",t:"Yemeni coffee, cloud matcha",lat:33.7804038,lng:-84.3891702,g:"ChIJLyiPZGcE9YgR4YS29YMCvAU",f:"Open till midnight Fri\u2013Sat"},
+ {i:"vinedo",n:"El Vi\u00f1edo Local",a:"Midtown",t:"Venezuelan plates and wine bar",lat:33.7743893,lng:-84.3849071,g:"ChIJ8-AgkXwF9YgRerw_Yj02Fsw",f:"8am\u201310pm. 4.9 stars over 7,600 reviews."},
+ {i:"altatoro",n:"AltaToro",a:"Midtown",t:"Latin small plates and paella",lat:33.780567,lng:-84.387098,g:"ChIJCztBntwF9YgRaraSa1SOtus",f:"Opens 3pm"},
+ {i:"blackjack",n:"Blackjack Bar Tapas",a:"Midtown",t:"Asian tapas and craft cocktails",lat:33.784193,lng:-84.384209,g:"ChIJEfPy9WMF9YgRLmRvGEfpn34",f:"Opens 4:30pm"},
+ {i:"larakin",n:"Larakin",a:"Midtown",t:"Coffee by day, wine bar by night, big patio",lat:33.7845458,lng:-84.3805299,g:"ChIJ1d0S3aQF9YgRtCdQqVEno3I",f:"Closes 2pm Mon\u2013Tue, 10pm Wed\u2013Sat. Near Piedmont Park."},
+ {i:"momonoki",n:"Momonoki / Momo Cafe",a:"Midtown",t:"Japanese caf\u00e9 and ramen, matcha lattes",lat:33.7797614,lng:-84.3902573,g:"ChIJvX5_WjoF9YgREUNL-rWN2dA",f:"Caf\u00e9 upstairs, restaurant downstairs. 9am\u20139pm."},
+
+ {i:"4elements",n:"4 Elements Restaurant & Bar",a:"Downtown",t:"Wood-fire cooking and cocktails",lat:33.7648501,lng:-84.3958869,g:"ChIJ6ypVWCYF9YgRKZf2Hv-hFrw",f:"Closed Tue. Two blocks from the Tabernacle."},
+ {i:"tesorosd",n:"El Tesoro South Downtown",a:"Downtown",t:"Tacos, patio on Founders Green",lat:33.7512705,lng:-84.3933955,g:"ChIJ1Y7wvusD9YgR77dytjA68Co",f:"Walkable to the Tabernacle"},
+ {i:"nicks",n:"Nick's Food To Go",a:"Downtown",t:"Greek gyros, hole in the wall",lat:33.7474999,lng:-84.3797222,g:"ChIJ3wNK8I0D9YgR__7biGbUFGE",f:"Weekday lunch only"},
+
+ {i:"norifish",n:"Norifish Roll Bar",a:"Intown east & south",t:"Hand rolls, Ponce City Market",lat:33.7731313,lng:-84.3656485,g:"ChIJMz7CMiQH9YgR5ZQ65IkTw-c",f:"Closed Mon. Hand roll omakase is the order."},
+ {i:"lacueva",n:"La Cueva",a:"Intown east & south",t:"Speakeasy, ceviche and live bands, Ponce City Market",lat:33.7720675,lng:-84.365377,g:"ChIJH8xOpjkF9YgR4KjXvhNub90",f:"Closed Sun. Hidden entrance by the barbershop. Reserve."},
+ {i:"sofox",n:"So. Fox",a:"Intown east & south",t:"Seasonal tasting menu, Virginia-Highland",lat:33.7821356,lng:-84.3538968,g:"ChIJBc5GwugH9YgReAlF6J_hddQ",f:"Thu\u2013Fri only, 5\u201310pm. Books out weeks. Pescatarian-friendly."},
+ {i:"rosa",n:"Rosa",a:"Intown east & south",t:"Mexican, fully gluten-free kitchen",lat:33.7870717,lng:-84.3557139,g:"ChIJpRavEAAF9YgRjrhe8j4830o",f:"Virginia-Highland. Soft-serve margarita."},
+ {i:"chromeyellow",n:"Chrome Yellow",a:"Intown east & south",t:"Coffee roaster, Old Fourth Ward",lat:33.7539267,lng:-84.371011,g:"ChIJ-yzpL4wF9YgR4gopjocMzl4",f:"7am\u20135pm. WiFi capped at 2 hours."},
+ {i:"taproom",n:"Taproom Coffee",a:"Intown east & south",t:"Coffee, Kirkwood",lat:33.7515784,lng:-84.3232086,g:"ChIJf3sUcjIB9YgRKkVdGSDG-t0",f:"Good for sitting and working. Opens 6:30am."},
+ {i:"hodgepodge",n:"Hodgepodge Coffeehouse",a:"Intown east & south",t:"Coffee and local art, East Atlanta Village",lat:33.7345114,lng:-84.3491636,g:"ChIJM7PF_10B9YgRJMJGTriwPRQ",f:"Community space, lots of seating"},
+ {i:"elmalo",n:"El Malo",a:"Intown east & south",t:"Late-night cocktail bar and DJ sets",lat:33.7459926,lng:-84.3603501,g:"ChIJkcagYrcD9YgRHlzDqG_OpUk",f:"Thu\u2013Sun 6pm\u20132am. Gets hot and packed. 3.8 stars."},
+ {i:"ladybird",n:"Ladybird Grove & Mess Hall",a:"Intown east & south",t:"Beltline beer garden and BBQ",lat:33.7595612,lng:-84.36423,g:"ChIJpwdZ0AcE9YgR4Y8mHDdrygo",f:"Till midnight, 2am Fri\u2013Sat"},
+ {i:"lasemilla",n:"La Semilla",a:"Intown east & south",t:"Plant-based Cuban and Latin",lat:33.7467005,lng:-84.3616308,g:"ChIJf1xHTeED9YgRyPGIQJXxNW0",f:"Closed Mon"},
+ {i:"tesoroedge",n:"El Tesoro (original)",a:"Intown east & south",t:"Tacos, Edgewood",lat:33.7494657,lng:-84.3426151,g:"ChIJs-lyPk4B9YgRzmKz4HCfLo0",f:"Birria Thursdays only. Closed Mon."},
+ {i:"tesorowe",n:"El Tesoro West End",a:"Intown east & south",t:"Tacos, Lee + White on the Beltline",lat:33.7318686,lng:-84.4217556,g:"ChIJzS6BdN4D9YgRTlrQRB04FHQ",f:"Dog-friendly patio"},
+
+ {i:"highnoon",n:"High Noon Brunchery",a:"North & northwest",t:"All-pink brunch room, Peachtree Rd",lat:33.8165436,lng:-84.3896626,g:"ChIJQ69FEr0n9YgRgFn_CIi_XPk",f:"Reservations basically required"},
+ {i:"gardenroom",n:"The Garden Room",a:"North & northwest",t:"Cherry blossom cocktail lounge, Buckhead",lat:33.8398483,lng:-84.3826334,g:"ChIJIxjn9p4F9YgRrCpi4OZ4aXU",f:"Closed Mon\u2013Tue. Pricey."},
+ {i:"kskin",n:"Kskin Express Facial",a:"North & northwest",t:"Korean express facial, Sandy Springs",lat:33.9171678,lng:-84.3802498,g:"ChIJ57J3yxcP9YgRZx-pii0yvpg",f:"$35 first-timer with code GLOWUP"},
+ {i:"sunnyside",n:"Sunnyside Pizzeria",a:"North & northwest",t:"Wood-fired pizza, Sandy Springs",lat:33.9248114,lng:-84.3837303,g:"ChIJkwDnaSwP9YgRU-hSwJmK6JY",f:"Weekends only, Sat\u2013Sun noon. Small room, reserve."},
+ {i:"arabiancafe",n:"Arabian Cafe & Cocktails",a:"North & northwest",t:"Mediterranean and hookah, Sandy Springs",lat:33.9832171,lng:-84.348793,g:"ChIJTfN4UP4L9YgRKaI-02pvwi4",f:"Closed Mon. Very new, only 8 reviews so far."},
+ {i:"baramaya",n:"Bar Amaya",a:"North & northwest",t:"Mediterranean plates, hookah, late, Marietta",lat:33.9386463,lng:-84.505953,g:"ChIJRzcaxQER9YgRfdcp9m_pNnk",f:"Open till 3am Fri\u2013Sat. Octopus and lamb chops."},
+
+ {i:"havana",n:"Havana Sandwich Shop",a:"Buford Highway",t:"Cuban sandwiches and empanadas",lat:33.8328546,lng:-84.3406222,g:"ChIJScEv8xAG9YgRCpBiH2IeWDw",f:"Closed Sun"},
+ {i:"salsataq",n:"Salsa Taqueria & Wings",a:"Buford Highway",t:"Halal Mexican inside a gas station",lat:33.8549544,lng:-84.3148599,g:"ChIJHWIG2KwJ9YgR-717SKDZEUk",f:"Birria tacos"},
+ {i:"lees",n:"Lee's Bakery",a:"Buford Highway",t:"B\u00e1nh m\u00ec and ph\u1edf",lat:33.8600179,lng:-84.3089497,g:"ChIJ7wdC1GMI9YgRBEM7NrRNNY0",f:"Closed Mon. Get the combo."},
+ {i:"plazafiesta",n:"Plaza Fiesta",a:"Buford Highway",t:"Indoor Mexican market, food court, arcade",lat:33.8632976,lng:-84.3082416,g:"ChIJydpW0GAI9YgRMoVzjL_353U",f:"Good with a kid"},
+ {i:"canton",n:"Canton House",a:"Buford Highway",t:"Dim sum, Chamblee",lat:33.8825089,lng:-84.2894163,g:"ChIJl_zF2jUI9YgRVb0T76o4oWE",f:""},
+ {i:"gus",n:"Gu's Kitchen",a:"Buford Highway",t:"Sichuan, dan dan noodles",lat:33.8848413,lng:-84.2881708,g:"ChIJr64TC98J9YgRD_HD0H1Vh48",f:"Closed Mon"},
+ {i:"foodterminal",n:"Food Terminal",a:"Buford Highway",t:"Malaysian, enormous menu",lat:33.8874403,lng:-84.2877688,g:"ChIJ3Z_V18oJ9YgRbo2xqmkKIAw",f:""},
+ {i:"bestbbq",n:"Best BBQ",a:"Buford Highway",t:"Cantonese roast meats and dim sum",lat:33.8880043,lng:-84.2886085,g:"ChIJu_0jO08J9YgRQX5yLmNQOiU",f:""},
+ {i:"familybaking",n:"Family Baking",a:"Buford Highway",t:"Portuguese egg tarts, pandan rolls",lat:33.8907921,lng:-84.2998541,g:"ChIJl5raKhwJ9YgRiyGhAGi7NgU",f:"Closed Tue. 4.8 stars."},
+ {i:"tacoveloz",n:"El Taco Veloz",a:"Buford Highway",t:"Drive-thru taqueria",lat:33.8911017,lng:-84.2856377,g:"ChIJ2wmhccwJ9YgR4sor8nmnrL0",f:"7am\u2013midnight daily"},
+ {i:"northernchina",n:"Northern China Eatery",a:"Buford Highway",t:"Dumplings and soup dumplings",lat:33.8925867,lng:-84.2838997,g:"ChIJ4Ytbov0J9YgRkCiqjFWW69k",f:"Closed Tue"},
+ {i:"sweethut",n:"Sweet Hut Bakery Cafe",a:"Buford Highway",t:"Asian bakery and tea",lat:33.8934407,lng:-84.2843624,g:"ChIJ65PBassJ9YgRyFGrun-xPlY",f:"Open till 10pm"},
+ {i:"kamayan",n:"Kamayan ATL",a:"Buford Highway",t:"Filipino",lat:33.8937424,lng:-84.2853203,g:"ChIJYYb9NJEH9YgRUYeQ1aGs0sw",f:"Closed Mon\u2013Tue"},
+ {i:"iceny",n:"ICENY Ice Cream",a:"Buford Highway",t:"Thai rolled ice cream",lat:33.8936407,lng:-84.2832896,g:"ChIJKTBujs4J9YgR97Jl2IH03xk",f:"Opens 1pm. Mango sticky rice."},
+ {i:"dimsumheaven",n:"Dim Sum Heaven",a:"Buford Highway",t:"Dim sum off the menu",lat:33.8941142,lng:-84.2826292,g:"ChIJr-EXrc8J9YgRW-Ky2rjbNFw",f:"Closed Tue"},
+ {i:"lanzhou",n:"LanZhou Ramen",a:"Buford Highway",t:"Hand-pulled noodles made to order",lat:33.8948429,lng:-84.2819667,g:"ChIJZ8obVM4J9YgR_JlLF3EF1EM",f:""},
+ {i:"elrey",n:"El Rey Del Taco",a:"Buford Highway",t:"Tacos, open very late",lat:33.8970722,lng:-84.2819326,g:"ChIJE1BGlM8J9YgR6ND5Uwb5Y0A",f:"Till 1am, 2am Fri\u2013Sat"},
+ {i:"whitewindmill",n:"White Windmill Bakery",a:"Buford Highway",t:"Korean bakery and bingsu",lat:33.910816,lng:-84.2644976,g:"ChIJA0-40F2n9YgRBeywsjw5YCA",f:"7:30am\u201310pm"},
+
+ {i:"9292shabu",n:"9292 Shabu",a:"Northeast suburbs",t:"Hot pot, nine broths, Duluth",lat:33.9612537,lng:-84.1444343,g:"ChIJf1qNlo2j9YgRPn4UpytZEKo",f:"$20 lunch for two. Bingsu at the end."},
+ {i:"goldbunny",n:"Gold Bunny Donut",a:"Northeast suburbs",t:"Filled specialty donuts, Duluth",lat:33.9548254,lng:-84.1344574,g:"ChIJ-_wjwRaj9YgR8b5gkI03hYo",f:"Closed Mon"},
+ {i:"mozart",n:"Mozart Bakery",a:"Northeast suburbs",t:"Korean bakery and caf\u00e9, Duluth",lat:33.9545887,lng:-84.1326978,g:"ChIJ8cuxMhCj9YgRuq3-mrvbrp0",f:"Open till midnight Fri\u2013Sat"},
+ {i:"masterpiece",n:"Masterpiece",a:"Northeast suburbs",t:"Sichuan, Duluth",lat:33.9772333,lng:-84.1617361,g:"ChIJZQYNdEmi9YgRRtuX9ZzsRQ4",f:"Closed Tue"},
+ {i:"tomato2",n:"Tomato 2 Japanese Grocery",a:"Northeast suburbs",t:"Japanese konbini, sushi push pops",lat:33.9862717,lng:-84.2727227,g:"ChIJBymTyqyg9YgRBFJeoEMFnv8",f:"Call ahead, push pops sell out"},
+ {i:"overstory",n:"Overstory Rooftop Bar",a:"Northeast suburbs",t:"Rooftop bar, Sugarloaf, Duluth",lat:33.9905758,lng:-84.0934259,g:"ChIJabmb96e99YgRHjr6vj-X6SQ",f:"Great views, service runs slow. 3.7 stars."},
+ {i:"hansel",n:"Hansel & Gretel Bakery Cafe",a:"Northeast suburbs",t:"Korean pastries, Duluth",lat:33.999777,lng:-84.1694363,g:"ChIJAfxbSWqj9YgRbxzv74WA5ck",f:"Quieter than the Pleasant Hill location"},
+ {i:"fadefacet",n:"Fade + Facet",a:"Northeast suburbs",t:"Caribbean-soul restaurant and neon lounge",lat:34.0032561,lng:-84.1716711,g:"ChIJuUeZcL2j9YgRreiqZyhUips",f:"Closed Mon\u2013Tue"},
+ {i:"daiso",n:"Daiso",a:"Northeast suburbs",t:"Japanese variety store, Alpharetta",lat:34.0490179,lng:-84.2226512,g:"ChIJ_Z_8Y1Of9YgR6uY2J1taalc",f:"Most items under $3"},
+ {i:"bloomroom",n:"Bloom Room Social",a:"Northeast suburbs",t:"Cherry blossom brunch, Suwanee",lat:34.0555961,lng:-84.0661296,g:"ChIJ3ZaXHcaX9YgRGJXi2umEwqY",f:"8am\u201310pm daily"},
+
+ {i:"hungrystation",n:"Hungry Station",a:"South of the city",t:"Revolving sushi with train delivery",lat:33.4621966,lng:-84.2179553,g:"ChIJq4agcgtZ9IgR7jvQ9dwNm4o",f:"McDonough, ~40 min south"}
+];
+
+const KEY = "atl-saved-v1";
+let S = {};
+let markers = {};
+let saveTimer = null;
+
+function gmaps(p){
+  return "https://www.google.com/maps/search/?api=1&query=" +
+    encodeURIComponent(p.n + " Atlanta GA") + "&query_place_id=" + p.g;
+}
+function st(id){ return S[id] || (S[id] = {v:false, note:""}); }
+
+function toast(msg){
+  const el = document.getElementById("saved");
+  el.textContent = msg || "Saved";
+  el.classList.add("on");
+  clearTimeout(el._t);
+  el._t = setTimeout(()=>el.classList.remove("on"), 1200);
+}
+
+function load(){
+  try{
+    const raw = localStorage.getItem(KEY);
+    if(raw) S = JSON.parse(raw);
+  }catch(e){ S = {}; }
+}
+function save(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(()=>{
+    try{ localStorage.setItem(KEY, JSON.stringify(S)); toast(); }
+    catch(e){ toast("Couldn't save — storage may be full or blocked"); }
+  }, 450);
+}
+
+function tally(){
+  const n = P.filter(p=>st(p.i).v).length;
+  document.getElementById("tally").innerHTML =
+    "<b>" + n + "</b> of " + P.length + " visited";
+}
+
+function paint(p){
+  const row = document.getElementById("r-"+p.i);
+  const on = st(p.i).v;
+  if(row) row.classList.toggle("been", on);
+  const m = markers[p.i];
+  if(m) m.setStyle({fillColor: on ? "#0d6b58" : "#ffffff",
+                    color: on ? "#0d6b58" : "#c8901a",
+                    fillOpacity: on ? 1 : .9});
+}
+
+function setVisited(p, on){
+  st(p.i).v = on;
+  paint(p); tally(); save();
+}
+
+/* ---------- map ---------- */
+const map = L.map("map", {scrollWheelZoom:false}).setView([33.83,-84.32], 10);
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+  {maxZoom:18, attribution:"&copy; OpenStreetMap contributors"}).addTo(map);
+
+P.forEach(p=>{
+  const m = L.circleMarker([p.lat,p.lng],
+    {radius:7, weight:2.5, color:"#c8901a", fillColor:"#fff", fillOpacity:.9}).addTo(map);
+  markers[p.i] = m;
+
+  const el = document.createElement("div");
+  el.className = "pop";
+  el.innerHTML = '<div class="pn"></div><div class="pm"></div>' +
+                 '<button type="button"></button>' +
+                 '<a target="_blank" rel="noopener">Directions</a> &middot; ' +
+                 '<a href="#" class="jump">Notes</a>';
+  el.querySelector(".pn").textContent = p.n;
+  el.querySelector(".pm").textContent = p.a + " \u2014 " + p.t;
+  const btn = el.querySelector("button");
+  const sync = ()=>{
+    const on = st(p.i).v;
+    btn.textContent = on ? "\u2713 Been here" : "Mark as visited";
+    btn.classList.toggle("on", on);
+  };
+  btn.addEventListener("click", ()=>{ setVisited(p, !st(p.i).v); sync(); });
+  el.querySelector("a[target]").href = gmaps(p);
+  el.querySelector(".jump").addEventListener("click", ev=>{
+    ev.preventDefault(); map.closePopup();
+    const row = document.getElementById("r-"+p.i);
+    row.classList.add("open");
+    row.scrollIntoView({behavior:"smooth", block:"center"});
+    row.querySelector("textarea").focus();
+  });
+  m.on("popupopen", sync);
+  m.bindPopup(el);
+});
+
+/* ---------- list ---------- */
+const AREAS = ["West Midtown","Midtown","Downtown","Intown east & south",
+               "North & northwest","Buford Highway","Northeast suburbs","South of the city"];
+
+function build(){
+  const list = document.getElementById("list");
+  list.innerHTML = "";
+  AREAS.forEach(area=>{
+    const mine = P.filter(p=>p.a===area);
+    if(!mine.length) return;
+    const h = document.createElement("h2");
+    h.dataset.area = area;
+    h.innerHTML = "<span></span><span></span>";
+    h.children[0].textContent = area;
+    h.children[1].textContent = mine.length;
+    list.appendChild(h);
+
+    mine.forEach(p=>{
+      const s = st(p.i);
+      const row = document.createElement("div");
+      row.className = "row" + (s.v ? " been" : "");
+      row.id = "r-"+p.i;
+      row.dataset.hay = (p.n+" "+p.a+" "+p.t+" "+(p.f||"")).toLowerCase();
+
+      row.innerHTML =
+        '<div class="head">' +
+          '<div class="box" role="checkbox" tabindex="0"></div>' +
+          '<div class="txt"><div class="nm"></div><div class="meta"></div>' +
+          (p.f ? '<div class="flag"></div>' : '') + '</div>' +
+          '<div class="chev">\u25be</div>' +
+        '</div>' +
+        '<div class="panel">' +
+          '<label class="nl">Your notes</label>' +
+          '<textarea placeholder="What you ordered, who you went with, whether to go back\u2026"></textarea>' +
+          '<div class="links"><a target="_blank" rel="noopener">Directions</a>' +
+          '<a href="#" class="focus">Show on map</a></div>' +
+        '</div>';
+
+      row.querySelector(".nm").textContent = p.n;
+      row.querySelector(".meta").textContent = p.t;
+      if(p.f) row.querySelector(".flag").textContent = p.f;
+      row.querySelector("a[target]").href = gmaps(p);
+
+      const box = row.querySelector(".box");
+      box.setAttribute("aria-checked", s.v);
+      box.setAttribute("aria-label", "Been to " + p.n);
+      const flip = ev=>{
+        ev.stopPropagation();
+        setVisited(p, !st(p.i).v);
+        box.setAttribute("aria-checked", st(p.i).v);
+      };
+      box.addEventListener("click", flip);
+      box.addEventListener("keydown", ev=>{
+        if(ev.key===" "||ev.key==="Enter"){ ev.preventDefault(); flip(ev); }
+      });
+
+      row.querySelector(".head").addEventListener("click", ()=> row.classList.toggle("open"));
+
+      const ta = row.querySelector("textarea");
+      ta.value = s.note || "";
+      ta.addEventListener("click", e=>e.stopPropagation());
+      ta.addEventListener("input", ()=>{ st(p.i).note = ta.value; save(); });
+
+      row.querySelector(".focus").addEventListener("click", ev=>{
+        ev.preventDefault();
+        map.setView([p.lat,p.lng], 15);
+        markers[p.i].openPopup();
+        document.getElementById("map").scrollIntoView({behavior:"smooth", block:"center"});
+      });
+
+      list.appendChild(row);
+    });
+  });
+  tally();
+}
+
+function filter(){
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  const hide = document.getElementById("hide").checked;
+  AREAS.forEach(area=>{
+    let shown = 0;
+    P.filter(p=>p.a===area).forEach(p=>{
+      const row = document.getElementById("r-"+p.i);
+      const ok = (!q || row.dataset.hay.includes(q)) && !(hide && st(p.i).v);
+      row.style.display = ok ? "" : "none";
+      if(ok) shown++;
+    });
+    const h = document.querySelector('h2[data-area="'+area+'"]');
+    if(h){ h.style.display = shown ? "" : "none"; h.children[1].textContent = shown; }
+  });
+}
+document.getElementById("q").addEventListener("input", filter);
+document.getElementById("hide").addEventListener("change", filter);
+
+/* ---------- backup ---------- */
+document.getElementById("dl").addEventListener("click", ()=>{
+  const blob = new Blob([JSON.stringify(S, null, 2)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "atlanta-saved-" + new Date().toISOString().slice(0,10) + ".json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+document.getElementById("up").addEventListener("click", ()=> document.getElementById("file").click());
+document.getElementById("file").addEventListener("change", ev=>{
+  const f = ev.target.files[0];
+  if(!f) return;
+  const r = new FileReader();
+  r.onload = ()=>{
+    try{
+      const incoming = JSON.parse(r.result);
+      Object.keys(incoming).forEach(k=>{
+        const cur = S[k] || {v:false, note:""};
+        S[k] = {
+          v: cur.v || !!incoming[k].v,
+          note: [cur.note, incoming[k].note].filter(Boolean).join("\n").trim()
+        };
+      });
+      localStorage.setItem(KEY, JSON.stringify(S));
+      build(); P.forEach(paint); filter();
+      toast("Backup loaded");
+    }catch(e){ toast("That file didn't look like a backup"); }
+    ev.target.value = "";
+  };
+  r.readAsText(f);
+});
+
+load();
+build();
+P.forEach(paint);
+map.fitBounds(P.map(p=>[p.lat,p.lng]), {padding:[28,28]});
+</script>
+</body>
+</html>

@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ATL Eats | Atlanta, saved</title>
+<meta name="description" content="Mary Sue's running list of Atlanta spots to eat, drink and explore.">
+<meta name="theme-color" content="#ff8fb8">
+<meta name="apple-mobile-web-app-title" content="ATL Eats">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+  :root{
+    --ink:#141414;
+    --cream:#fff6e6;
+    --pink:#ff8fb8;
+    --lime:#a6e35f;
+    --tomato:#ff5a36;
+    --sun:#ffd23f;
+    --sky:#7cc8ff;
+    --lilac:#b9a6ff;
+    --orange:#ff8a3d;
+    --mint:#7de3c3;
+    --display:"Bricolage Grotesque","Arial Rounded MT Bold","Helvetica Neue",Arial,sans-serif;
+    --body:"DM Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-padding-top:env(safe-area-inset-top,0px)}
+  body{margin:0;background:var(--cream);color:var(--ink);
+       font:16px/1.5 var(--body);-webkit-font-smoothing:antialiased;
+       padding-bottom:env(safe-area-inset-bottom,0px)}
+  a{color:inherit}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;overflow:hidden;background:var(--pink);
+        border-bottom:3px solid var(--ink);
+        padding:calc(26px + env(safe-area-inset-top,0px)) 20px 34px}
+  .hero-in{max-width:880px;margin:0 auto;position:relative;z-index:2}
+  .tag{display:inline-block;background:var(--ink);color:var(--cream);
+       font:700 12px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;
+       padding:8px 12px;border-radius:99px}
+  h1{font:800 clamp(56px,15vw,124px)/.86 var(--display);letter-spacing:-.045em;
+     margin:18px 0 14px;color:var(--ink)}
+  h1 .dot{color:var(--cream);-webkit-text-stroke:3px var(--ink)}
+  .sub{font:500 18px/1.35 var(--body);max-width:30ch;margin:0}
+  .badge{position:absolute;right:4px;top:4px;width:118px;height:118px;border-radius:50%;
+         background:var(--sun);border:3px solid var(--ink);display:grid;place-items:center;
+         text-align:center;transform:rotate(10deg);box-shadow:5px 5px 0 var(--ink)}
+  .badge b{display:block;font:800 34px/1 var(--display);letter-spacing:-.03em}
+  .badge span{font:700 11px/1.1 var(--body);letter-spacing:.1em;text-transform:uppercase}
+  .sticker{position:absolute;z-index:1;font-size:54px;line-height:1;
+           filter:drop-shadow(3px 3px 0 rgba(20,20,20,.9));user-select:none}
+  .s1{right:8%;bottom:-8px;transform:rotate(-14deg)}
+  .s2{right:30%;bottom:18px;font-size:40px;transform:rotate(12deg)}
+  .s3{left:62%;top:26px;font-size:36px;transform:rotate(-8deg)}
+  @media (max-width:560px){
+    .badge{position:static;margin:20px 0 0;transform:rotate(-4deg)}
+    .s3{display:none}
+    .s1{right:5%} .s2{right:32%}
+  }
+
+  .wrap{max-width:880px;margin:0 auto;padding:0 16px}
+
+  /* ---------- map ---------- */
+  .mapcard{margin:28px 0 8px;border:3px solid var(--ink);border-radius:22px;overflow:hidden;
+           box-shadow:6px 6px 0 var(--ink);background:#e8e2d4}
+  #map{height:360px}
+  .maphint{font-size:13.5px;margin:10px 2px 0;color:#4a4a4a}
+
+  /* ---------- controls ---------- */
+  .controls{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0 6px;
+            position:sticky;top:0;z-index:500;padding:12px 0;background:var(--cream)}
+  .search{flex:1 1 220px;min-width:0;border:3px solid var(--ink);border-radius:99px;
+          padding:11px 18px;font:500 16px var(--body);background:#fff;color:var(--ink)}
+  .search:focus{outline:none;box-shadow:4px 4px 0 var(--ink)}
+  .chip{border:3px solid var(--ink);border-radius:99px;padding:10px 16px;
+        font:700 14px var(--body);background:#fff;color:var(--ink);cursor:pointer;
+        transition:transform .12s ease, box-shadow .12s ease}
+  .chip:hover{transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--ink)}
+  .chip[aria-pressed="true"]{background:var(--lime)}
+  .chip.alt[aria-pressed="true"]{background:var(--sun)}
+
+  /* ---------- sections ---------- */
+  .area{margin:34px 0 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .area h2{margin:0;font:800 clamp(28px,6vw,40px)/1 var(--display);letter-spacing:-.035em;
+           padding:8px 16px 10px;border:3px solid var(--ink);border-radius:14px;
+           box-shadow:4px 4px 0 var(--ink);transform:rotate(-1.2deg)}
+  .area .count{font:700 13px var(--body);letter-spacing:.08em;text-transform:uppercase}
+
+  /* ---------- cards ---------- */
+  .card{background:#fff;border:3px solid var(--ink);border-radius:18px;margin-bottom:14px;
+        overflow:hidden;transition:transform .12s ease, box-shadow .12s ease}
+  .card:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink)}
+  .card.open{box-shadow:5px 5px 0 var(--ink)}
+  .head{display:flex;gap:14px;align-items:flex-start;padding:15px 16px;cursor:pointer}
+  .stamp{flex:0 0 38px;height:38px;border-radius:50%;border:3px solid var(--ink);
+         background:#fff;display:grid;place-items:center;cursor:pointer;
+         font:800 17px var(--display);transition:background .15s ease, transform .15s ease}
+  .stamp:focus-visible{outline:3px solid var(--tomato);outline-offset:3px}
+  .card.been .stamp{background:var(--lime);transform:rotate(-12deg)}
+  .card.been .stamp::after{content:"\2713"}
+  .txt{flex:1;min-width:0}
+  .nm{font:800 22px/1.05 var(--display);letter-spacing:-.025em;margin:2px 0 4px}
+  .card.been .nm{text-decoration:line-through;text-decoration-thickness:3px;
+                 text-decoration-color:var(--lime)}
+  .meta{font-size:14.5px;color:#3b3b3b}
+  .pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+  .pill{font:700 12.5px/1 var(--body);padding:6px 10px;border-radius:99px;
+        border:2px solid var(--ink);background:var(--lime)}
+  .pill.shut{background:var(--tomato);color:#fff}
+  .pill.none{background:#eee}
+  .flag{font-size:13.5px;margin-top:8px;color:#5a4a1a}
+  .flag::before{content:"\2605  ";color:var(--orange)}
+  .plus{flex:0 0 auto;font:800 26px/1 var(--display);transition:transform .2s ease;margin-top:4px}
+  .card.open .plus{transform:rotate(45deg)}
+
+  .panel{display:none;border-top:3px dashed var(--ink);padding:14px 16px 18px 68px;
+         background:var(--cream)}
+  .card.open .panel{display:block}
+  .wk{border-collapse:collapse;font-size:14px;width:100%;max-width:320px}
+  .wk td{padding:3px 0;vertical-align:top}
+  .wk td:first-child{width:50px;font-weight:700}
+  .wk tr.td td{background:var(--sun);font-weight:700}
+  .wk tr.td td:first-child{border-radius:6px 0 0 6px;padding-left:6px}
+  .wk tr.td td:last-child{border-radius:0 6px 6px 0;padding-right:6px}
+  .nl{display:block;font:800 16px var(--display);margin:16px 0 6px}
+  textarea{width:100%;min-height:86px;padding:11px 13px;font:15px/1.45 var(--body);
+           border:3px solid var(--ink);border-radius:14px;resize:vertical;background:#fff;color:var(--ink)}
+  textarea:focus{outline:none;box-shadow:4px 4px 0 var(--ink)}
+  .links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .btn{display:inline-block;text-decoration:none;font:700 14px var(--body);
+       padding:9px 15px;border:3px solid var(--ink);border-radius:99px;background:#fff;
+       color:var(--ink);cursor:pointer}
+  .btn:hover{box-shadow:3px 3px 0 var(--ink);transform:translate(-1px,-1px)}
+  .btn.go{background:var(--pink)}
+  @media (max-width:560px){ .panel{padding-left:16px} .nm{font-size:20px} }
+
+  /* ---------- footer ---------- */
+  footer{margin-top:60px;background:var(--ink);color:var(--cream);
+         padding:40px 20px calc(44px + env(safe-area-inset-bottom,0px))}
+  footer .in{max-width:880px;margin:0 auto}
+  footer h3{font:800 40px/.95 var(--display);letter-spacing:-.03em;margin:0 0 12px;color:var(--pink)}
+  footer p{max-width:58ch;margin:0 0 18px;color:#d8d0c2}
+  footer .btn{background:var(--cream)}
+  footer .btn.go{background:var(--sun)}
+
+  .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));
+         transform:translateX(-50%) translateY(120px);background:var(--sun);color:var(--ink);
+         border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);
+         padding:10px 18px;border-radius:99px;font:700 14px var(--body);
+         transition:transform .25s cubic-bezier(.3,1.5,.6,1);z-index:9999;pointer-events:none}
+  .toast.on{transform:translateX(-50%) translateY(0)}
+
+  /* ---------- popups ---------- */
+  .leaflet-popup-content-wrapper{border:3px solid var(--ink);border-radius:16px;
+                                 box-shadow:4px 4px 0 var(--ink)}
+  .leaflet-popup-tip{border:3px solid var(--ink)}
+  .pop{font:14px/1.4 var(--body);min-width:210px}
+  .pop .pn{font:800 19px/1.05 var(--display);letter-spacing:-.02em;margin-bottom:4px}
+  .pop .pm{color:#4a4a4a;font-size:13px;margin-bottom:8px}
+  .pop .pill{display:inline-block;margin-bottom:10px}
+  .pop button{width:100%;font:700 14px var(--body);padding:9px;border:3px solid var(--ink);
+              border-radius:99px;background:#fff;cursor:pointer;color:var(--ink)}
+  .pop button.on{background:var(--lime)}
+  .pop .plinks{margin-top:9px;font-weight:700;font-size:13.5px}
+  .pop .plinks a{color:var(--ink);text-decoration-color:var(--pink);text-decoration-thickness:3px}
+  .leaflet-container a.leaflet-popup-close-button{color:var(--ink);font-size:22px;padding:6px 8px 0 0}
+
+
+  .btn.ig{background:var(--lilac)}
+  .hero-cta{display:inline-block;margin-top:16px;font:700 14px var(--body);text-decoration:none;
+            background:var(--cream);border:3px solid var(--ink);border-radius:99px;padding:9px 15px;
+            box-shadow:3px 3px 0 var(--ink)}
+  .install{margin:56px 0 0;background:var(--sky);border:3px solid var(--ink);border-radius:24px;
+           box-shadow:6px 6px 0 var(--ink);padding:26px 22px 24px}
+  .install h2{font:800 clamp(30px,7vw,44px)/.95 var(--display);letter-spacing:-.035em;margin:0 0 8px}
+  .install .lede{margin:0 0 18px;max-width:52ch}
+  .tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+  .tabs button{font:700 14px var(--body);padding:9px 16px;border:3px solid var(--ink);border-radius:99px;
+               background:#fff;color:var(--ink);cursor:pointer}
+  .tabs button[aria-selected="true"]{background:var(--sun)}
+  .steps{list-style:none;margin:0;padding:0;counter-reset:s;display:grid;gap:10px}
+  .steps[hidden]{display:none}
+  .steps li{counter-increment:s;background:#fff;border:3px solid var(--ink);border-radius:16px;
+            padding:12px 14px 12px 58px;position:relative;min-height:52px}
+  .steps li::before{content:counter(s);position:absolute;left:12px;top:10px;width:32px;height:32px;
+            border-radius:50%;background:var(--pink);border:3px solid var(--ink);display:grid;
+            place-items:center;font:800 16px var(--display)}
+  .steps b{font-weight:700}
+  .key{display:inline-block;border:2px solid var(--ink);border-radius:8px;padding:0 6px;
+       background:var(--cream);font-weight:700;white-space:nowrap}
+  .tip{margin:16px 0 0;font-size:14.5px;background:var(--cream);border:3px dashed var(--ink);
+       border-radius:14px;padding:11px 14px}
+  .is-app .install, .is-app .hero-cta{display:none}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-in">
+    <span class="tag">Mary Sue's list</span>
+    <h1>Atlanta,<br>saved<span class="dot">.</span></h1>
+    <p class="sub">Every spot I saved off Instagram. Tap it, eat it, check it off.</p>
+    <a class="hero-cta" href="#install">📲 Save it as an app</a>
+    <div class="badge" id="badge"><div><b id="bn">0</b><span id="bt">of 0 been</span></div></div>
+  </div>
+  <span class="sticker s1" aria-hidden="true">🍑</span>
+  <span class="sticker s2" aria-hidden="true">🥟</span>
+  <span class="sticker s3" aria-hidden="true">🌮</span>
+</header>
+
+<main class="wrap">
+  <div class="mapcard"><div id="map"></div></div>
+  <p class="maphint" id="maphint">Tap a pin for today's hours. Filled pins are places you've been.</p>
+
+  <div class="controls">
+    <input class="search" type="search" id="q" placeholder="Search dumplings, brunch, Duluth…" aria-label="Search places">
+    <button class="chip" id="open" type="button" aria-pressed="false">Open today</button>
+    <button class="chip alt" id="hide" type="button" aria-pressed="false">Hide been</button>
+  </div>
+
+  <div id="list"></div>
+
+  <section class="install" id="install" aria-labelledby="install-h">
+    <h2 id="install-h">Put it on your<br>home screen.</h2>
+    <p class="lede">It opens full screen like an app, with the peach icon, and your checkmarks and notes stay saved on your phone.</p>
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" id="t-ios" aria-selected="true" aria-controls="p-ios">iPhone</button>
+      <button type="button" role="tab" id="t-and" aria-selected="false" aria-controls="p-and">Android</button>
+    </div>
+    <ol class="steps" id="p-ios" role="tabpanel" aria-labelledby="t-ios">
+      <li>Open this page in <b>Safari</b>. If you got here from Instagram or a text, tap <span class="key">•••</span> and choose <b>Open in Safari</b> or <b>Open in browser</b> first.</li>
+      <li>Tap the <b>Share</b> button <span class="key">⬆︎</span> at the bottom of the screen. On newer iPhones it's inside the <span class="key">•••</span> menu.</li>
+      <li>Scroll down and tap <b>Add to Home Screen</b>.</li>
+      <li>Leave the name as <b>ATL Eats</b> and tap <b>Add</b>. Look for the peach on your home screen.</li>
+    </ol>
+    <ol class="steps" id="p-and" role="tabpanel" aria-labelledby="t-and" hidden>
+      <li>Open this page in <b>Chrome</b>. If you're inside Instagram, tap <span class="key">⋮</span> and choose <b>Open in Chrome</b>.</li>
+      <li>Tap the <span class="key">⋮</span> menu in the top right corner.</li>
+      <li>Tap <b>Add to Home screen</b> (some phones say <b>Install app</b>).</li>
+      <li>Tap <b>Add</b> or <b>Install</b>. The peach icon will show up with your other apps.</li>
+    </ol>
+    <p class="tip"><b>Heads up:</b> on iPhone, the home screen app keeps its own copy of your checkmarks, separate from Safari. If you already checked places off in Safari, tap <b>Download backup</b> at the bottom there, then <b>Load a backup</b> in the app.</p>
+  </section>
+</main>
+
+<footer>
+  <div class="in">
+    <h3>Keep it synced.</h3>
+    <p>Checkmarks and notes live in this browser only. Download a backup, then load it on your other phone or laptop. Hours are a snapshot, so tap Hours &amp; info for the live Google listing.</p>
+    <div class="links">
+      <button class="btn go" type="button" id="dl">Download backup</button>
+      <button class="btn" type="button" id="up">Load a backup</button>
+      <input type="file" id="file" accept="application/json" hidden>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast">Saved</div>
+
+<script>
+const P = [
+ {i:"pinklotus",n:"Pink Lotus Thai",a:"West Midtown",t:"Regional Thai, shareable plates",lat:33.7813192,lng:-84.4139024,g:"ChIJ_Rak1Y4F9YgRNaj3YiIabZ8",w:"https://www.pinklotusthai.com/",f:"Resy. Say something about fish sauce if vegetarian.",h:["11:30am\u201310pm","11:30am\u201310pm","11:30am\u201310pm","11:30am\u201310pm","11:30am\u201311pm","12\u201311pm","12\u201310pm"]},
+ {i:"lokee",n:"LO KEE",a:"West Midtown",t:"Asian fusion, The Interlock",lat:33.7848343,lng:-84.4100733,g:"ChIJ022C104F9YgRCVJ8p4cRG24",w:"https://www.lokeeatl.com/",f:"Dinner only",h:["5pm\u201312am","5pm\u201312am","5pm\u201312am","5pm\u201312am","5pm\u20131am","5pm\u20131am","5pm\u201312am"]},
+ {i:"fum",n:"F\u00fcm",a:"West Midtown",t:"Contemporary Italian, open kitchen",lat:33.7827664,lng:-84.4091076,g:"ChIJSQLNS3gF9YgRpyilirMHCmQ",w:"https://www.fumatl.com/",ig:"fumatl",f:"",h:["Closed","Closed","5:30\u20139pm","5:30\u20139pm","5:30\u201310pm","5:30\u201310pm","5:30\u20139pm"]},
+ {i:"avize",n:"Avize",a:"West Midtown",t:"Modern Alpine fine dining",lat:33.7809025,lng:-84.4133924,g:"ChIJK9Gk2YYF9YgR3f-T6fTabpY",w:"https://www.avizeatlanta.com/",f:"3hr validated parking in the garage next door",h:["Closed","5\u201310pm","5\u201310pm","5\u201310pm","5\u201311pm","5\u201311pm","Closed"]},
+ {i:"luckystar",n:"Lucky Star",a:"West Midtown",t:"Taiwanese caf\u00e9, cocktail omakase at night",lat:33.7834391,lng:-84.4112678,g:"ChIJecIQNQAF9YgRZh4W10eFQ1g",w:"https://www.luckystaratl.com/",ig:"luckystaratl",f:"Day caf\u00e9 and night bar are separate services",h:["Closed","Closed","9am\u20133pm, 5\u201311pm","9am\u20133pm, 5\u201311pm","9am\u20133pm, 4pm\u201312am","10am\u20133pm, 4pm\u201312am","10am\u20134pm"]},
+ {i:"flourtime",n:"Flour + Time Bakery",a:"West Midtown",t:"Vegan bakery and coffee",lat:33.7892312,lng:-84.4249029,g:"ChIJIc-ltYCp9YgRNZPxlf6V8i0",w:"",f:"4.9 stars, top-rated on this list",h:["Closed","Closed","8am\u20132pm","8am\u20132pm","8am\u20134pm","8am\u20134pm","8am\u20134pm"]},
+ {i:"oriori",n:"ORI ORI",a:"West Midtown",t:"Cr\u00eapes and melon soda, Chattahoochee Food Works",lat:33.8027943,lng:-84.4285671,g:"ChIJm1LN1CsF9YgRadw_rx14NcY",w:"",f:"Inside the food hall",h:["12\u20139pm","12\u20139pm","12\u20139pm","12\u20139pm","12\u20139pm","12\u20139pm","12\u20139pm"]},
+ {i:"summerland",n:"Summerland",a:"West Midtown",t:"Daytime brunch, Westside Market",lat:33.8105775,lng:-84.433794,g:"ChIJcZ4MKQAF9YgR8TCmyvPa9fk",w:"",f:"Reservations only. Book ahead, walk-ins get turned away.",h:["Closed","Closed","9am\u20133pm","9am\u20133pm","9am\u20133pm","9am\u20133pm","9am\u20133pm"]},
+
+ {i:"haraz",n:"Haraz Coffee House",a:"Midtown",t:"Yemeni coffee, cloud matcha",lat:33.7804038,lng:-84.3891702,g:"ChIJLyiPZGcE9YgR4YS29YMCvAU",w:"https://www.harazmidtownatl.com/",ig:"hrzcoffee_atlanta",f:"",h:["8am\u201310pm","8am\u201310pm","8am\u201310pm","8am\u201310pm","8am\u201312am","8am\u201312am","8am\u201310pm"]},
+ {i:"vinedo",n:"El Vi\u00f1edo Local",a:"Midtown",t:"Venezuelan plates and wine bar",lat:33.7743893,lng:-84.3849071,g:"ChIJ8-AgkXwF9YgRerw_Yj02Fsw",w:"https://www.elvinedolocal.com/",f:"4.9 stars across 7,800 reviews",h:["8am\u20139pm","8am\u201310pm","8am\u201310pm","8am\u201310pm","8am\u201310pm","8am\u201310pm","8am\u20139pm"]},
+ {i:"altatoro",n:"AltaToro",a:"Midtown",t:"Latin small plates and paella",lat:33.780567,lng:-84.387098,g:"ChIJCztBntwF9YgRaraSa1SOtus",w:"http://www.altatoro.com/",f:"",h:["3\u201310pm","3\u201310pm","3\u201310pm","3\u201310pm","3\u201311pm","11am\u201311pm","11am\u20139:30pm"]},
+ {i:"blackjack",n:"Blackjack Bar Tapas",a:"Midtown",t:"Asian tapas and craft cocktails",lat:33.784193,lng:-84.384209,g:"ChIJEfPy9WMF9YgRLmRvGEfpn34",w:"",f:"",h:["4:30pm\u201312am","4:30pm\u201312am","4:30pm\u201312am","4:30pm\u201312am","4:30pm\u20131am","4:30pm\u20131am","4:30pm\u201312am"]},
+ {i:"larakin",n:"Larakin",a:"Midtown",t:"Coffee by day, wine bar by night, big patio",lat:33.7845458,lng:-84.3805299,g:"ChIJ1d0S3aQF9YgRtCdQqVEno3I",w:"",f:"Near Piedmont Park. Mostly outdoor seating.",h:["8am\u20132pm","8am\u20132pm","8am\u201310pm","8am\u201310pm","8am\u201310pm","8am\u201310pm","8am\u20134pm"]},
+ {i:"momonoki",n:"Momonoki / Momo Cafe",a:"Midtown",t:"Japanese caf\u00e9 and ramen, matcha lattes",lat:33.7797614,lng:-84.3902573,g:"ChIJvX5_WjoF9YgREUNL-rWN2dA",w:"https://www.momonokiatl.com/",ig:"momonokiatl",f:"Caf\u00e9 upstairs, restaurant downstairs",h:["9am\u20139pm","9am\u20139pm","9am\u20139pm","9am\u20139pm","9am\u201310pm","9am\u201310pm","9am\u20139pm"]},
+
+ {i:"4elements",n:"4 Elements Restaurant & Bar",a:"Downtown",t:"Wood-fire cooking and cocktails",lat:33.7648501,lng:-84.3958869,g:"ChIJ6ypVWCYF9YgRKZf2Hv-hFrw",w:"",f:"Two blocks from the Tabernacle",h:["4\u201311pm","Closed","4\u201310pm","4\u201310pm","4pm\u201312am","11am\u201311pm","11am\u20131:30am"]},
+ {i:"tesorosd",n:"El Tesoro | South Downtown",a:"Downtown",t:"Tacos, patio on Founders Green",lat:33.7512705,lng:-84.3933955,g:"ChIJ1Y7wvusD9YgR77dytjA68Co",w:"http://www.eltesoroatl.com/",f:"Walkable to the Tabernacle",h:["11am\u20139pm","11am\u20139pm","11am\u20139pm","11am\u20139pm","11am\u201310pm","11am\u201310pm","11am\u20138pm"]},
+ {i:"nicks",n:"Nick's Food To Go",a:"Downtown",t:"Greek gyros, hole in the wall",lat:33.7474999,lng:-84.3797222,g:"ChIJ3wNK8I0D9YgR__7biGbUFGE",w:"",ig:"nicksfoodtogo",f:"Weekdays only. Mostly takeout.",h:["11am\u20137pm","11am\u20137pm","11am\u20137pm","11am\u20137pm","11am\u20137pm","Closed","Closed"]},
+
+ {i:"norifish",n:"Norifish Roll Bar",a:"Intown east & south",t:"Hand rolls, Ponce City Market",lat:33.7731313,lng:-84.3656485,g:"ChIJMz7CMiQH9YgR5ZQ65IkTw-c",w:"",f:"Hand roll omakase is the order",h:["Closed","12\u20139pm","12\u20139pm","12\u20139pm","12\u201310pm","12\u201310pm","12\u20138pm"]},
+ {i:"lacueva",n:"La Cueva",a:"Intown east & south",t:"Speakeasy, ceviche and live bands, Ponce City Market",lat:33.7720675,lng:-84.365377,g:"ChIJH8xOpjkF9YgR4KjXvhNub90",w:"https://lacuevaatl.com/",f:"Hidden entrance by the barbershop. Reserve.",h:["5\u201311pm","5\u201311pm","5\u201311pm","5pm\u20131am","5pm\u20131am","5pm\u20131am","Closed"]},
+ {i:"sofox",n:"So. Fox",a:"Intown east & south",t:"Seasonal tasting menu, Virginia-Highland",lat:33.7821356,lng:-84.3538968,g:"ChIJBc5GwugH9YgReAlF6J_hddQ",w:"https://www.sofoxatl.com/",f:"Google shows Thu\u2013Fri; press says Thu\u2013Mon. Check the site. Books out weeks.",h:["Closed","Closed","Closed","5\u201310pm","5\u201310pm","Closed","Closed"]},
+ {i:"rosa",n:"Rosa",a:"Intown east & south",t:"Mexican, fully gluten-free kitchen",lat:33.7870717,lng:-84.3557139,g:"ChIJpRavEAAF9YgRjrhe8j4830o",w:"",f:"Virginia-Highland. Soft-serve margarita.",h:["11am\u20139pm","11am\u20139pm","11am\u20139pm","11am\u20139pm","11am\u201310pm","11am\u201310pm","11am\u20139pm"]},
+ {i:"chromeyellow",n:"Chrome Yellow",a:"Intown east & south",t:"Coffee roaster, Old Fourth Ward",lat:33.7539267,lng:-84.371011,g:"ChIJ-yzpL4wF9YgR4gopjocMzl4",w:"",f:"WiFi capped at 2 hours",h:["7am\u20135pm","7am\u20135pm","7am\u20135pm","7am\u20135pm","7am\u20135pm","8am\u20135pm","8am\u20135pm"]},
+ {i:"taproom",n:"Taproom Coffee",a:"Intown east & south",t:"Coffee, Kirkwood",lat:33.7515784,lng:-84.3232086,g:"ChIJf3sUcjIB9YgRKkVdGSDG-t0",w:"",f:"Good for sitting and working",h:["6:30am\u20136pm","6:30am\u20136pm","6:30am\u20136pm","6:30am\u20136pm","6:30am\u20136pm","7:30am\u20136pm","7:30am\u20136pm"]},
+ {i:"hodgepodge",n:"Hodgepodge Coffeehouse",a:"Intown east & south",t:"Coffee and local art, East Atlanta Village",lat:33.7345114,lng:-84.3491636,g:"ChIJM7PF_10B9YgRJMJGTriwPRQ",w:"",f:"Hours not published, check before you go",h:null},
+ {i:"elmalo",n:"El Malo",a:"Intown east & south",t:"Late-night cocktail bar and DJ sets",lat:33.7459926,lng:-84.3603501,g:"ChIJkcagYrcD9YgRHlzDqG_OpUk",w:"",f:"Gets hot and packed. 3.8 stars.",h:["Closed","Closed","Closed","6pm\u20132am","6pm\u20132am","6pm\u20132am","6pm\u201312am"]},
+ {i:"ladybird",n:"Ladybird Grove & Mess Hall",a:"Intown east & south",t:"Beltline beer garden and BBQ",lat:33.7595612,lng:-84.36423,g:"ChIJpwdZ0AcE9YgR4Y8mHDdrygo",w:"http://www.ladybirdatl.com/",f:"",h:["11am\u201312am","11am\u201312am","11am\u201312am","11am\u201312am","11am\u20132am","11am\u20132am","11am\u201312am"]},
+ {i:"lasemilla",n:"La Semilla",a:"Intown east & south",t:"Plant-based Cuban and Latin",lat:33.7467005,lng:-84.3616308,g:"ChIJf1xHTeED9YgRyPGIQJXxNW0",w:"https://www.lasemilla.kitchen/",f:"Dinner only Fri and Sat",h:["Closed","11am\u20132:30pm, 5\u201310pm","11am\u20132:30pm, 5\u201310pm","11am\u20132:30pm, 5\u201310pm","5\u201311pm","5\u201311pm","11am\u20132:30pm, 5\u20139pm"]},
+ {i:"tesoroedge",n:"El Tesoro (original)",a:"Intown east & south",t:"Tacos, Edgewood",lat:33.7494657,lng:-84.3426151,g:"ChIJs-lyPk4B9YgRzmKz4HCfLo0",w:"http://edgewood.eltesoroatl.com/",f:"Birria Thursdays only. Line gets long.",h:["Closed","11am\u20139pm","11am\u20139pm","11am\u20139pm","11am\u201310pm","10am\u201310pm","10am\u20137pm"]},
+ {i:"tesorowe",n:"El Tesoro West End",a:"Intown east & south",t:"Tacos, Lee + White on the Beltline",lat:33.7316779,lng:-84.4216754,g:"ChIJzS6BdN4D9YgRTlrQRB04FHQ",w:"http://westend.eltesoroatl.com/",f:"Dog-friendly patio",h:["11am\u20139pm","11am\u20139pm","11am\u20139pm","11am\u20139pm","11am\u201310pm","11am\u201310pm","11am\u20138pm"]},
+
+ {i:"highnoon",n:"High Noon Brunchery",a:"North & northwest",t:"All-pink brunch room, Peachtree Rd",lat:33.8165436,lng:-84.3896626,g:"ChIJQ69FEr0n9YgRgFn_CIi_XPk",w:"https://www.highnoonbrunchery.com/",f:"Reservations basically required",h:["8am\u20134pm","8am\u20134pm","8am\u20134pm","8am\u20134pm","8am\u20134pm","8am\u20134pm","8am\u20134pm"]},
+ {i:"gardenroom",n:"The Garden Room",a:"North & northwest",t:"Cherry blossom cocktail lounge, Buckhead",lat:33.8398483,lng:-84.3826334,g:"ChIJIxjn9p4F9YgRrCpi4OZ4aXU",w:"https://thegardenroomatlanta.com/",f:"Stunning room, 3.7 stars, pricey",h:["Closed","Closed","5\u201311pm","5\u201311pm","3pm\u201312am","3pm\u201312am","11am\u20133pm"]},
+ {i:"ybar",n:"Y BAR e Ristorante",a:"North & northwest",t:"Italian aperitivo bar and small plates, Buckhead",lat:33.8387551,lng:-84.3801772,g:"ChIJ0XDfEgAF9YgRGGjyx2vuxYk",w:"",f:"Evenings only. Closed Sun\u2013Mon. Cacio e burro and the mini meatball subs.",h:["Closed","5pm\u201312am","5pm\u201312am","5pm\u201312am","5pm\u20131am","5pm\u20131am","Closed"]},
+ {i:"kskin",n:"Kskin Express Facial",a:"North & northwest",t:"Korean express facial, Sandy Springs",lat:33.9171678,lng:-84.3802498,g:"ChIJ57J3yxcP9YgRZx-pii0yvpg",w:"https://kskinfacial.com/usa/",ig:"kskinfacial.us",f:"$35 first-timer with code GLOWUP",h:["10am\u20137pm","10am\u20137pm","10am\u20137pm","10am\u20137pm","10am\u20137pm","10am\u20137pm","11am\u20136pm"]},
+ {i:"sunnyside",n:"Sunnyside Pizzeria",a:"North & northwest",t:"Wood-fired pizza, Sandy Springs",lat:33.9248114,lng:-84.3837303,g:"ChIJkwDnaSwP9YgRU-hSwJmK6JY",w:"",f:"Weekends only. Small room, reserve.",h:["Closed","Closed","Closed","Closed","Closed","12\u20139:30pm","12\u20139pm"]},
+ {i:"arabiancafe",n:"Arabian Cafe & Cocktails",a:"North & northwest",t:"Mediterranean and hookah, Sandy Springs",lat:33.9832171,lng:-84.348793,g:"ChIJTfN4UP4L9YgRKaI-02pvwi4",w:"",f:"Very new, only 8 reviews so far",h:["Closed","12pm\u201312am","12pm\u201312am","12pm\u201312am","12pm\u201312am","12pm\u201312am","11am\u201311pm"]},
+ {i:"baramaya",n:"Bar Amaya",a:"North & northwest",t:"Mediterranean plates, hookah, late, Marietta",lat:33.9386463,lng:-84.505953,g:"ChIJRzcaxQER9YgRfdcp9m_pNnk",w:"",f:"Octopus and lamb chops",h:["4pm\u20131am","4pm\u20131am","4pm\u20131am","4pm\u20131am","4pm\u20133am","4pm\u20133am","4pm\u20132am"]},
+
+ {i:"havana",n:"Havana Sandwich Shop",a:"Buford Highway",t:"Cuban sandwiches and empanadas",lat:33.8328546,lng:-84.3406222,g:"ChIJScEv8xAG9YgRCpBiH2IeWDw",w:"",f:"",h:["10:30am\u20138pm","10:30am\u20138pm","10:30am\u20138pm","10:30am\u20138pm","10:30am\u20138pm","10:30am\u20138pm","Closed"]},
+ {i:"salsataq",n:"Salsa Taqueria & Wings",a:"Buford Highway",t:"Halal Mexican inside a gas station",lat:33.8549544,lng:-84.3148599,g:"ChIJHWIG2KwJ9YgR-717SKDZEUk",w:"",f:"Birria tacos. Solid vegetarian options.",h:["10am\u20139pm","10am\u20139pm","10am\u20139pm","10am\u20139pm","10am\u201310pm","10am\u201310pm","10am\u20139pm"]},
+ {i:"lees",n:"Lee's Bakery",a:"Buford Highway",t:"B\u00e1nh m\u00ec and ph\u1edf",lat:33.8600179,lng:-84.3089497,g:"ChIJ7wdC1GMI9YgRBEM7NrRNNY0",w:"",f:"Get the half-ph\u1edf half-b\u00e1nh-m\u00ec combo",h:["Closed","8am\u20137pm","8am\u20137pm","8am\u20137pm","8am\u20137pm","8am\u20137:30pm","8am\u20137:30pm"]},
+ {i:"plazafiesta",n:"Plaza Fiesta",a:"Buford Highway",t:"Indoor Mexican market, food court, arcade",lat:33.8632976,lng:-84.3082416,g:"ChIJydpW0GAI9YgRMoVzjL_353U",w:"",f:"Good with a kid, big game room",h:["11am\u20138pm","11am\u20138pm","11am\u20138pm","11am\u20138pm","11am\u20138pm","10:30am\u20138pm","10:30am\u20138pm"]},
+ {i:"canton",n:"Canton House",a:"Buford Highway",t:"Dim sum, Chamblee",lat:33.8825089,lng:-84.2894163,g:"ChIJl_zF2jUI9YgRVb0T76o4oWE",w:"",f:"Kitchen closes after 3pm Tue, dim sum only",h:["11am\u20139pm","11am\u20139pm","11am\u20139pm","11am\u20139pm","11am\u201310pm","10am\u201310pm","10am\u201310pm"]},
+ {i:"gus",n:"Gu's Kitchen",a:"Buford Highway",t:"Sichuan, dan dan noodles",lat:33.8848413,lng:-84.2881708,g:"ChIJr64TC98J9YgRD_HD0H1Vh48",w:"",f:"QR-code ordering, minimal service",h:["Closed","11am\u20138pm","11am\u20138pm","11am\u20138pm","11am\u20139pm","11am\u20139pm","11am\u20139pm"]},
+ {i:"foodterminal",n:"Food Terminal",a:"Buford Highway",t:"Malaysian, enormous menu",lat:33.8874403,lng:-84.2877688,g:"ChIJ3Z_V18oJ9YgRbo2xqmkKIAw",w:"",f:"4.6 stars across 4,200 reviews",h:["11am\u20139:30pm","11am\u20139:30pm","11am\u20139:30pm","11am\u20139:30pm","11am\u201310pm","11am\u201310pm","11am\u20139:30pm"]},
+ {i:"bestbbq",n:"Best BBQ",a:"Buford Highway",t:"Cantonese roast meats and dim sum",lat:33.8880043,lng:-84.2886085,g:"ChIJu_0jO08J9YgRQX5yLmNQOiU",w:"",f:"Inside the market. Some dishes run out.",h:["10:30am\u20138pm","10:30am\u20138pm","10:30am\u20138pm","10:30am\u20138pm","10:30am\u20138pm","10am\u20138pm","10am\u20138pm"]},
+ {i:"familybaking",n:"Family Baking",a:"Buford Highway",t:"Portuguese egg tarts, pandan rolls",lat:33.8907921,lng:-84.2998541,g:"ChIJl5raKhwJ9YgRiyGhAGi7NgU",w:"",f:"4.8 stars. Vegan-friendly bakery.",h:["8:30am\u20137pm","Closed","8:30am\u20137pm","8:30am\u20137pm","8:30am\u20138pm","8:30am\u20138pm","8:30am\u20137pm"]},
+ {i:"tacoveloz",n:"El Taco Veloz",a:"Buford Highway",t:"Drive-thru taqueria",lat:33.8911017,lng:-84.2856377,g:"ChIJ2wmhccwJ9YgR4sor8nmnrL0",w:"",f:"Open 7am to midnight every day",h:["7am\u201312am","7am\u201312am","7am\u201312am","7am\u201312am","7am\u201312am","7am\u201312am","7am\u201312am"]},
+ {i:"minhwa",n:"Minhwa Spirits",a:"Buford Highway",t:"Korean restaurant, distillery and caf\u00e9, Doraville",lat:33.9193652,lng:-84.282037,g:"ChIJg6Xpn0cJ9YgR-2P2vN6n_Ks",w:"",f:"Spirits made on site. Kimchi fried rice is dinner-only.",h:["Closed","Closed","11am\u20133pm, 5\u201310pm","11am\u20133pm, 5\u201310pm","11am\u20133pm, 5\u201311pm","10am\u20134pm, 5\u201311pm","10am\u20134pm"]},
+ {i:"northernchina",n:"Northern China Eatery",a:"Buford Highway",t:"Dumplings and soup dumplings",lat:33.8925867,lng:-84.2838997,g:"ChIJ4Ytbov0J9YgRkCiqjFWW69k",w:"",f:"Mix-and-match plate: 3 fillings, 15 dumplings",h:["11am\u20139pm","Closed","11am\u20139pm","11am\u20139pm","11am\u201310pm","11am\u201310pm","11am\u201310pm"]},
+ {i:"sweethut",n:"Sweet Hut Bakery Cafe",a:"Buford Highway",t:"Asian bakery and tea",lat:33.8934407,lng:-84.2843624,g:"ChIJ65PBassJ9YgRyFGrun-xPlY",w:"",f:"",h:["9am\u201310pm","9am\u201310pm","9am\u201310pm","9am\u201310pm","9am\u201310:30pm","9am\u201310:30pm","9am\u201310pm"]},
+ {i:"kamayan",n:"Kamayan ATL",a:"Buford Highway",t:"Filipino",lat:33.8937424,lng:-84.2853203,g:"ChIJYYb9NJEH9YgRUYeQ1aGs0sw",w:"",f:"Veggie lumpia and ube cr\u00e8me br\u00fbl\u00e9e",h:["Closed","Closed","5\u20139pm","5\u20139pm","12\u20139pm","12\u20139pm","12\u20139pm"]},
+ {i:"iceny",n:"ICENY Ice Cream",a:"Buford Highway",t:"Thai rolled ice cream",lat:33.8936407,lng:-84.2832896,g:"ChIJKTBujs4J9YgR97Jl2IH03xk",w:"http://www.icenyicecream.com/",f:"Mango sticky rice",h:["2\u20139pm","2\u20139pm","2\u20139pm","2\u20139pm","2\u201310pm","1\u201310pm","1\u20139pm"]},
+ {i:"dimsumheaven",n:"Dim Sum Heaven",a:"Buford Highway",t:"Dim sum off the menu, no carts",lat:33.8941142,lng:-84.2826292,g:"ChIJr-EXrc8J9YgRW-Ky2rjbNFw",w:"",f:"",h:["11am\u20139:30pm","Closed","11am\u20139:30pm","11am\u20139:30pm","11am\u20139:30pm","11am\u20139:30pm","11am\u20139:30pm"]},
+ {i:"lanzhou",n:"LanZhou Ramen",a:"Buford Highway",t:"Hand-pulled noodles made to order",lat:33.8948429,lng:-84.2819667,g:"ChIJZ8obVM4J9YgR_JlLF3EF1EM",w:"",f:"Cheap, full meal around $25",h:["11am\u20139:30pm","11am\u20139:30pm","11am\u20139:30pm","11am\u20139:30pm","11am\u20139:30pm","11am\u20139:30pm","11am\u20139:30pm"]},
+ {i:"elrey",n:"El Rey Del Taco",a:"Buford Highway",t:"Tacos, open very late",lat:33.8970722,lng:-84.2819326,g:"ChIJE1BGlM8J9YgR6ND5Uwb5Y0A",w:"",f:"",h:["11:30am\u20131am","11:30am\u20131am","11:30am\u20131am","11:30am\u20131am","11:30am\u20132am","11:30am\u20132am","11:30am\u20131am"]},
+ {i:"whitewindmill",n:"White Windmill Bakery",a:"Buford Highway",t:"Korean bakery and bingsu",lat:33.910816,lng:-84.2644976,g:"ChIJA0-40F2n9YgRBeywsjw5YCA",w:"",f:"Big room, lots of outlets",h:["7:30am\u201310pm","7:30am\u201310pm","7:30am\u201310pm","7:30am\u201310pm","7:30am\u201311pm","7:30am\u201311pm","7:30am\u201310pm"]},
+
+ {i:"9292shabu",n:"9292 Shabu",a:"Northeast suburbs",t:"Hot pot, nine broths, Duluth",lat:33.9612537,lng:-84.1444343,g:"ChIJf1qNlo2j9YgRPn4UpytZEKo",w:"",f:"$20 lunch for two. Bingsu at the end.",h:["11:30am\u201310:30pm","11:30am\u201310:30pm","11:30am\u201310:30pm","11:30am\u201310:30pm","11:30am\u201310:30pm","11:30am\u201310:30pm","11:30am\u201310:30pm"]},
+ {i:"goldbunny",n:"Gold Bunny Donut",a:"Northeast suburbs",t:"Filled specialty donuts, Duluth",lat:33.9548254,lng:-84.1344574,g:"ChIJ-_wjwRaj9YgR8b5gkI03hYo",w:"",f:"~$4 each. Buy 6, get a free drink.",h:["Closed","9am\u20137pm","9am\u20137pm","9am\u20137pm","9am\u20138pm","10am\u20138pm","10am\u20137pm"]},
+ {i:"mozart",n:"Mozart Bakery",a:"Northeast suburbs",t:"Korean bakery and caf\u00e9, Duluth",lat:33.9545887,lng:-84.1326978,g:"ChIJ8cuxMhCj9YgRuq3-mrvbrp0",w:"",f:"Same plaza as Gold Bunny",h:["8am\u201310pm","8am\u201310pm","8am\u201310pm","8am\u201310pm","8am\u201312am","8am\u201312am","8am\u201310pm"]},
+ {i:"masterpiece",n:"Masterpiece",a:"Northeast suburbs",t:"Sichuan, Duluth",lat:33.9772333,lng:-84.1617361,g:"ChIJZQYNdEmi9YgRRtuX9ZzsRQ4",w:"",f:"Zhong wontons and purple potato dumplings",h:["10:30am\u20139pm","Closed","10:30am\u20139:30pm","10:30am\u20139:30pm","10:30am\u201310pm","11am\u201310pm","11am\u201310pm"]},
+ {i:"tomato2",n:"Tomato 2 Japanese Grocery",a:"Northeast suburbs",t:"Japanese konbini, sushi push pops",lat:33.9862717,lng:-84.2727227,g:"ChIJBymTyqyg9YgRBFJeoEMFnv8",w:"http://www.tomato-2.com/",f:"Call (770) 263-7838, push pops sell out",h:["10am\u20138pm","10am\u20138pm","10am\u20138pm","10am\u20138pm","10am\u20138pm","10am\u20138pm","10am\u20136pm"]},
+ {i:"overstory",n:"Overstory Rooftop Bar",a:"Northeast suburbs",t:"Rooftop bar, Sugarloaf, Duluth",lat:33.9905758,lng:-84.0934259,g:"ChIJabmb96e99YgRHjr6vj-X6SQ",w:"",f:"Great views, service runs slow. 3.7 stars.",h:["4\u201311pm","4\u201311pm","4\u201311pm","4\u201311pm","4pm\u201312am","11am\u20132pm, 4pm\u201312am","11am\u20132pm, 4\u201310pm"]},
+ {i:"hansel",n:"Hansel & Gretel Bakery Cafe",a:"Northeast suburbs",t:"Korean pastries, Duluth",lat:33.999777,lng:-84.1694363,g:"ChIJAfxbSWqj9YgRbxzv74WA5ck",w:"https://hanselgretelbakerycafe.com/",ig:"hanselgretel.bakery",f:"Quieter than the Pleasant Hill location",h:["9am\u20139pm","9am\u20139pm","9am\u20139pm","9am\u20139pm","9am\u20139pm","9am\u20139:30pm","9:30am\u20139pm"]},
+ {i:"fadefacet",n:"Fade + Facet",a:"Northeast suburbs",t:"Caribbean-soul restaurant and neon lounge",lat:34.0032561,lng:-84.1716711,g:"ChIJuUeZcL2j9YgRreiqZyhUips",w:"https://www.fadeandfacet.com/",f:"Watch the auto-gratuity",h:["Closed","Closed","6\u201311pm","6\u201311pm","6pm\u20132am","6pm\u20132am","12\u20135pm, 6\u201310pm"]},
+ {i:"daiso",n:"Daiso",a:"Northeast suburbs",t:"Japanese variety store, Alpharetta",lat:34.0490179,lng:-84.2226512,g:"ChIJ_Z_8Y1Of9YgR6uY2J1taalc",w:"https://daisous.com/",f:"Most items under $3. No public restroom.",h:["9am\u20139pm","9am\u20139pm","9am\u20139pm","9am\u20139pm","9am\u20139pm","9am\u20139pm","10am\u20138pm"]},
+ {i:"bloomroom",n:"Bloom Room Social",a:"Northeast suburbs",t:"Cherry blossom brunch, Suwanee",lat:34.0555961,lng:-84.0661296,g:"ChIJ3ZaXHcaX9YgRGJXi2umEwqY",w:"https://bloomroomsocial.com/",f:"Weekend waits run 40 min",h:["8am\u201310pm","8am\u201310pm","8am\u201310pm","8am\u201310pm","8am\u201312am","8am\u201312am","8am\u201310pm"]},
+
+ {i:"hungrystation",n:"Hungry Station",a:"South of the city",t:"Revolving sushi with train delivery",lat:33.4621966,lng:-84.2179553,g:"ChIJq4agcgtZ9IgR7jvQ9dwNm4o",w:"https://www.hs-revolvingsushiramenandmongoliangrill.com/",f:"McDonough, ~40 min south. Reserve on busy days.",h:["11am\u201310pm","11am\u201310pm","11am\u201310pm","11am\u201310pm","11am\u201311pm","11am\u201311pm","11am\u201310pm"]}
+];
+
+const AREAS = [
+  {k:"West Midtown", c:"var(--lime)", e:"🍜"},
+  {k:"Midtown", c:"var(--pink)", e:"☕"},
+  {k:"Downtown", c:"var(--sun)", e:"🎤"},
+  {k:"Intown east & south", c:"var(--orange)", e:"🌮"},
+  {k:"North & northwest", c:"var(--lilac)", e:"🍸"},
+  {k:"Buford Highway", c:"var(--tomato)", e:"🥟"},
+  {k:"Northeast suburbs", c:"var(--sky)", e:"🍩"},
+  {k:"South of the city", c:"var(--mint)", e:"🍣"}
+];
+const HEX = {"West Midtown":"#a6e35f","Midtown":"#ff8fb8","Downtown":"#ffd23f",
+  "Intown east & south":"#ff8a3d","North & northwest":"#b9a6ff","Buford Highway":"#ff5a36",
+  "Northeast suburbs":"#7cc8ff","South of the city":"#7de3c3"};
+
+const DAYS = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+const today = (new Date().getDay() + 6) % 7;
+const KEY = "atl-saved-v1";
+let S = {}, markers = {}, map = null, saveT = null;
+
+const $ = id => document.getElementById(id);
+const st = id => S[id] || (S[id] = {v:false, note:""});
+const gmaps = p => "https://www.google.com/maps/search/?api=1&query=" +
+  encodeURIComponent(p.n + " Atlanta GA") + "&query_place_id=" + p.g;
+const hoursToday = p => p.h ? p.h[today] : null;
+const shut = p => !p.h || p.h[today] === "Closed";
+function pillFor(p){
+  const t = hoursToday(p), el = document.createElement("span");
+  el.className = "pill" + (!t ? " none" : t === "Closed" ? " shut" : "");
+  el.textContent = !t ? "Hours not listed" : t === "Closed" ? "Closed today" : "Open today " + t;
+  return el;
+}
+
+function toast(m){ const t=$("toast"); t.textContent=m||"Saved"; t.classList.add("on");
+  clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove("on"),1300); }
+function load(){ try{ const r=localStorage.getItem(KEY); if(r) S=JSON.parse(r); }catch(e){ S={}; } }
+function save(){ clearTimeout(saveT); saveT=setTimeout(()=>{
+  try{ localStorage.setItem(KEY, JSON.stringify(S)); toast("Saved"); }
+  catch(e){ toast("Couldn't save in this browser"); } }, 450); }
+
+function tally(){
+  const n = P.filter(p=>st(p.i).v).length;
+  $("bn").textContent = n;
+  $("bt").textContent = "of " + P.length + " been";
+}
+function paint(p){
+  const on = st(p.i).v, card = $("c-"+p.i);
+  if(card){ card.classList.toggle("been", on);
+    const s = card.querySelector(".stamp"); s.setAttribute("aria-checked", on); }
+  const m = markers[p.i];
+  if(m) m.setStyle({fillColor: on ? HEX[p.a] : "#ffffff", color:"#141414",
+                    weight: on ? 3 : 2.5, fillOpacity: 1, radius: on ? 9 : 8});
+}
+function setBeen(p, on){
+  st(p.i).v = on; paint(p); tally(); save();
+  if(on) toast("Nice. " + p.n + " checked off");
+}
+
+/* ---------- list ---------- */
+function build(){
+  const list = $("list"); list.innerHTML = "";
+  AREAS.forEach(A=>{
+    const mine = P.filter(p=>p.a===A.k);
+    if(!mine.length) return;
+    const sec = document.createElement("section");
+    sec.dataset.area = A.k;
+    const hd = document.createElement("div"); hd.className = "area";
+    const h2 = document.createElement("h2"); h2.style.background = A.c;
+    h2.textContent = A.e + " " + A.k;
+    const ct = document.createElement("span"); ct.className = "count";
+    hd.append(h2, ct); sec.appendChild(hd);
+
+    mine.forEach(p=>{
+      const s = st(p.i);
+      const card = document.createElement("article");
+      card.className = "card" + (s.v ? " been" : "");
+      card.id = "c-"+p.i;
+      card.dataset.hay = (p.n+" "+p.a+" "+p.t+" "+(p.f||"")).toLowerCase();
+      card.innerHTML =
+        '<div class="head"><button class="stamp" type="button" role="checkbox"></button>' +
+        '<div class="txt"><div class="nm"></div><div class="meta"></div><div class="pills"></div></div>' +
+        '<div class="plus" aria-hidden="true">+</div></div>' +
+        '<div class="panel"><table class="wk"></table>' +
+        '<label class="nl">My notes</label>' +
+        '<textarea placeholder="What I ordered, who I went with, would I go back…"></textarea>' +
+        '<div class="links"></div></div>';
+
+      card.querySelector(".nm").textContent = p.n;
+      card.querySelector(".meta").textContent = p.t;
+      card.querySelector(".pills").appendChild(pillFor(p));
+      if(p.f){ const f=document.createElement("div"); f.className="flag"; f.textContent=p.f;
+               card.querySelector(".txt").appendChild(f); }
+
+      const wk = card.querySelector(".wk");
+      if(p.h){ DAYS.forEach((d,i)=>{ const tr=wk.insertRow(); if(i===today) tr.className="td";
+               tr.insertCell().textContent=d; tr.insertCell().textContent=p.h[i]; }); }
+      else { wk.insertRow().insertCell().textContent = "Hours aren't published for this one."; }
+
+      const lk = card.querySelector(".links");
+      if(p.w){ const a=document.createElement("a"); a.className="btn go"; a.href=p.w;
+               a.target="_blank"; a.rel="noopener"; a.textContent="Website"; lk.appendChild(a); }
+      const d=document.createElement("a"); d.className="btn"; d.href=gmaps(p);
+      d.target="_blank"; d.rel="noopener"; d.textContent="Hours & info"; lk.appendChild(d);
+      if(p.ig){ const g=document.createElement("a"); g.className="btn ig"; g.href="https://www.instagram.com/"+p.ig+"/";
+               g.target="_blank"; g.rel="noopener"; g.textContent="Instagram"; lk.appendChild(g); }
+      const sm=document.createElement("button"); sm.className="btn"; sm.type="button";
+      sm.textContent="Show on map"; lk.appendChild(sm);
+      sm.addEventListener("click", ()=>{
+        if(!map || !markers[p.i]){ window.open(gmaps(p), "_blank"); return; }
+        map.setView([p.lat,p.lng], 15); markers[p.i].openPopup();
+        document.querySelector(".mapcard").scrollIntoView({behavior:"smooth", block:"center"});
+      });
+
+      const stamp = card.querySelector(".stamp");
+      stamp.setAttribute("aria-label", "Been to " + p.n);
+      stamp.setAttribute("aria-checked", s.v);
+      stamp.addEventListener("click", e=>{ e.stopPropagation(); setBeen(p, !st(p.i).v); });
+      card.querySelector(".head").addEventListener("click", ()=> card.classList.toggle("open"));
+
+      const ta = card.querySelector("textarea");
+      ta.value = s.note || "";
+      ta.addEventListener("input", ()=>{ st(p.i).note = ta.value; save(); });
+
+      sec.appendChild(card);
+    });
+    list.appendChild(sec);
+  });
+  filter(); tally();
+}
+
+function filter(){
+  const q = $("q").value.trim().toLowerCase();
+  const hide = $("hide").getAttribute("aria-pressed") === "true";
+  const openOnly = $("open").getAttribute("aria-pressed") === "true";
+  document.querySelectorAll("section[data-area]").forEach(sec=>{
+    let shown = 0;
+    P.filter(p=>p.a===sec.dataset.area).forEach(p=>{
+      const c = $("c-"+p.i);
+      const ok = (!q || c.dataset.hay.includes(q)) && !(hide && st(p.i).v) && !(openOnly && shut(p));
+      c.style.display = ok ? "" : "none"; if(ok) shown++;
+    });
+    sec.style.display = shown ? "" : "none";
+    sec.querySelector(".count").textContent = shown + (shown === 1 ? " spot" : " spots");
+  });
+}
+$("q").addEventListener("input", filter);
+["open","hide"].forEach(id=> $(id).addEventListener("click", ()=>{
+  const b=$(id); b.setAttribute("aria-pressed", b.getAttribute("aria-pressed")!=="true"); filter(); }));
+
+/* ---------- map ---------- */
+function initMap(){
+  if(typeof L === "undefined") throw new Error("no leaflet");
+  map = L.map("map", {scrollWheelZoom:false});
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+    {maxZoom:19, subdomains:"abcd",
+     attribution:'&copy; OpenStreetMap &copy; CARTO'}).addTo(map);
+
+  P.forEach(p=>{
+    const m = L.circleMarker([p.lat,p.lng], {radius:8, weight:2.5, color:"#141414",
+                fillColor:"#fff", fillOpacity:1}).addTo(map);
+    markers[p.i] = m;
+    const el = document.createElement("div"); el.className = "pop";
+    const pn = document.createElement("div"); pn.className="pn"; pn.textContent=p.n;
+    const pm = document.createElement("div"); pm.className="pm"; pm.textContent=p.a + " \u00b7 " + p.t;
+    const btn = document.createElement("button"); btn.type="button";
+    const pl = document.createElement("div"); pl.className="plinks";
+    const add = (txt, href)=>{ const a=document.createElement("a"); a.textContent=txt;
+      if(href){ a.href=href; a.target="_blank"; a.rel="noopener"; } else a.href="#";
+      if(pl.childNodes.length) pl.appendChild(document.createTextNode("  \u00b7  "));
+      pl.appendChild(a); return a; };
+    if(p.w) add("Website", p.w);
+    add("Hours & info", gmaps(p));
+    if(p.ig) add("Instagram", "https://www.instagram.com/"+p.ig+"/");
+    const nt = add("Notes");
+    el.append(pn, pm, pillFor(p), btn, pl);
+
+    const sync = ()=>{ const on=st(p.i).v; btn.textContent = on ? "\u2713 Been here" : "Mark as been";
+                       btn.classList.toggle("on", on); };
+    btn.addEventListener("click", ()=>{ setBeen(p, !st(p.i).v); sync(); });
+    nt.addEventListener("click", e=>{ e.preventDefault(); map.closePopup();
+      const c=$("c-"+p.i); c.style.display=""; c.classList.add("open");
+      c.scrollIntoView({behavior:"smooth", block:"center"}); c.querySelector("textarea").focus(); });
+    m.on("popupopen", sync); m.bindPopup(el);
+  });
+  map.fitBounds(P.map(p=>[p.lat,p.lng]), {padding:[26,26]});
+  P.forEach(paint);
+}
+
+/* ---------- backup ---------- */
+$("dl").addEventListener("click", ()=>{
+  const b = new Blob([JSON.stringify(S,null,2)], {type:"application/json"});
+  const a = document.createElement("a"); a.href = URL.createObjectURL(b);
+  a.download = "atl-eats-backup-" + new Date().toISOString().slice(0,10) + ".json";
+  a.click(); URL.revokeObjectURL(a.href);
+});
+$("up").addEventListener("click", ()=> $("file").click());
+$("file").addEventListener("change", e=>{
+  const f = e.target.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = ()=>{ try{
+      const inc = JSON.parse(r.result);
+      Object.keys(inc).forEach(k=>{ const c=S[k]||{v:false,note:""};
+        S[k] = {v: c.v || !!inc[k].v, note:[c.note, inc[k].note].filter(Boolean).join("\n").trim()}; });
+      localStorage.setItem(KEY, JSON.stringify(S));
+      build(); P.forEach(paint); toast("Backup loaded");
+    }catch(err){ toast("That file isn't a backup"); }
+    e.target.value = ""; };
+  r.readAsText(f);
+});
+
+/* ---------- install section ---------- */
+(function(){
+  const standalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+  if(standalone) document.documentElement.classList.add("is-app");
+  const tabs = {ios:[$("t-ios"),$("p-ios")], and:[$("t-and"),$("p-and")]};
+  function show(k){ Object.keys(tabs).forEach(x=>{ const on = x===k;
+    tabs[x][0].setAttribute("aria-selected", on); tabs[x][1].hidden = !on; }); }
+  $("t-ios").addEventListener("click", ()=>show("ios"));
+  $("t-and").addEventListener("click", ()=>show("and"));
+  if(/android/i.test(navigator.userAgent)) show("and");
+})();
+
+load();
+build();
+try{ initMap(); }
+catch(e){ document.querySelector(".mapcard").style.display="none";
+  $("maphint").textContent = "The map couldn't load here. The list works as normal, and Hours & info opens Google Maps."; }
+</script>
+</body>
+</html>

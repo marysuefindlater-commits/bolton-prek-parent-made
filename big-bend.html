@@ -3,7 +3,7 @@
 <style>
 /* Layout: vintage park poster, advisor's brief, day-by-day trail log with photo discs, ranger map, menu board, ticket, checklist */
 :root{
-  --paper:#f3e6c8; --paper2:#eadbb6; --card:#f8eedb; --ink:#2f2a24; --muted:#6b5d4c; --line:#cdb88f;
+  --paper:#f3e6c8; --paper2:#eadbb6; --card:#f8eedb; --plan:#e8d7ae; --optbg:#fbf5ea; --ink:#2f2a24; --muted:#6b5d4c; --line:#cdb88f;
   --rock:#c8714a; --rock2:#a4523a; --rocktx:#a4523a; --rock3:#e3a476; --sage:#5f7046; --river:#5f9aa1; --gold:#e8c27a;
   --display:"Big Shoulders Display","Oswald",Impact,sans-serif;
   --script:"Yellowtail","Brush Script MT",cursive;
@@ -11,10 +11,10 @@
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --paper:#211b16; --paper2:#2c241d; --card:#2a221c; --ink:#f0e2c4; --muted:#c2b192; --line:#4a3d31;
+  --paper:#211b16; --paper2:#2c241d; --card:#2a221c; --plan:#3a2f25; --optbg:#1c1713; --ink:#f0e2c4; --muted:#c2b192; --line:#4a3d31;
   --rocktx:#e8a479; --sage:#93a56e; --river:#7fb3b8; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --paper:#211b16; --paper2:#2c241d; --card:#2a221c; --ink:#f0e2c4; --muted:#c2b192; --line:#4a3d31;
+  --paper:#211b16; --paper2:#2c241d; --card:#2a221c; --plan:#3a2f25; --optbg:#1c1713; --ink:#f0e2c4; --muted:#c2b192; --line:#4a3d31;
   --rocktx:#e8a479; --sage:#93a56e; --river:#7fb3b8; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--body);margin:0}
@@ -78,7 +78,12 @@ section{margin-top:64px}
 dl{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;margin:4px 0 0;font-size:13.5px}
 dt{font:700 10.5px/1.9 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 dd{margin:0;min-width:0;overflow-wrap:anywhere}
-.links{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13.5px}
+.links{display:flex;flex-wrap:wrap;gap:8px;font-size:13.5px;grid-column:1/-1;margin-top:4px}
+.links a{display:inline-flex;align-items:center;text-decoration:none;font:700 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:var(--paper);border:1.5px solid var(--ink);border-radius:999px;padding:8px 14px}
+.links a:hover{background:var(--ink);color:var(--paper)}
+.stop{background:var(--plan)!important;border-color:var(--line)}
+.stop.opt{background:var(--optbg)!important;border-style:dashed}
+.stop.opt h3,.stop.opt .why{color:var(--muted)}
 .see{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;font-size:13px;padding-top:6px;border-top:1px dashed var(--line)}
 .see span{font:700 10.5px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .chip.stay{color:var(--ink);border-color:var(--line);background:var(--paper2)}
@@ -428,6 +433,7 @@ footer small{display:block;font:500 12px/1.6 var(--body);letter-spacing:.1em;mar
       <div class="kv">
         <div><b>Nights</b><span>Wed Nov 18 + Thu Nov 19</span></div>
         <div><b>Check in / out</b><span>3:00 PM self / 10:00 AM Fri</span></div>
+        <div><b>Room</b><span id="summit-room">Coming by email around Nov 11</span></div>
         <div><b>Guest</b><span>Mary Sue Findlater, 2 adults</span></div>
         <div><b>Address</b><span><a href="https://www.google.com/maps/dir/?api=1&destination=2500+N+Lone+Star+Mine+Terlingua+TX+79852" target="_blank" rel="noopener">2500 N Lone Star Mine, Terlingua ↗</a></span></div>
         <div><b>Text the team</b><span>432-220-3383</span></div>
@@ -436,7 +442,6 @@ footer small{display:block;font:500 12px/1.6 var(--body);letter-spacing:.1em;mar
     </div>
   </div>
   <div class="notes">
-    <div class="note"><b>Room number</b>Arrives by email about a week out, around Nov 11. No office on site.</div>
     <div class="note"><b>Power out?</b>Drive about 2 miles to Hwy 170 for cell signal.</div>
     <div class="note"><b>Pack light</b>Some domes sit 20+ yards from parking, up stairs or a slope.</div>
   </div>
@@ -531,13 +536,13 @@ const E={
  kiva:["La Kiva Restaurant & Bar","$$","Burgers, grilled chicken and pizza in a quirky, half-underground bar. Open Thu, closed Wed.","Mon, Tue, Thu, Fri 5 PM to midnight · Sat 5 PM to 1 AM","23220 FM 170, Terlingua","12 mi · 20 min","","La Kiva Restaurant Bar 23220 FM 170 Terlingua TX"],
  chili:["Chili Pepper Cafe","$","Traditional Tex-Mex.","Daily 8 AM to 9 PM","100 TX-118, Study Butte","14 mi · 23 min","432-371-2233","Chili Pepper Cafe 100 TX-118 Terlingua TX"]
 };
-function eatItem([n,p,d,h,ad,dist,ph,q]){return `<div class="item"><h4>${n}</h4><span class="px">${p}</span><p>${d}</p><p><b>Hours:</b> ${h}</p><p>${ad} · ${dist} from The Summit${ph?` · ${ph}`:''}</p><p><a href="${gm(q)}" target="_blank" rel="noopener">Map ↗</a> &nbsp; <a href="${dirTo(q)}" target="_blank" rel="noopener">Directions ↗</a></p></div>`}
+function eatItem([n,p,d,h,ad,dist,ph,q]){return `<div class="item"><h4>${n}</h4><span class="px">${p}</span><p>${d}</p><p><b>Hours:</b> ${h}</p><p>${ad} · ${dist} from The Summit${ph?` · ${ph}`:''}</p><div class="links"><a href="${dirTo(q)}" target="_blank" rel="noopener">Directions</a><a href="${gm(q)}" target="_blank" rel="noopener">Map</a></div></div>`}
 function card(s){
   const pic=s.img.startsWith("photo:")?`<img src="${IMG[s.img.slice(6)]}" alt="${s.n}">`:art(s.img);
   const dl=Object.entries(s.d).map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join("");
-  const ln=s.links.map(([l,u])=>`<a href="${u}" target="_blank" rel="noopener">${l} ↗</a>`).join("");
+  const ln=s.links.map(([l,u])=>`<a href="${u}" target="_blank" rel="noopener">${l}</a>`).join("");
   const watch=s.tt?`<div class="see"><span>Watch:</span>${s.vid?`<a href="${s.vid[1]}" target="_blank" rel="noopener">${s.vid[0]} ↗</a>`:''}<a href="https://www.tiktok.com/search/video?q=${encodeURIComponent(s.tt)}" target="_blank" rel="noopener">TikTok ↗</a><a href="https://www.instagram.com/explore/tags/${s.ig}/" target="_blank" rel="noopener">Instagram ↗</a></div>`:'';
-  return `<article class="stop"><div class="disc">${pic}</div><div class="sbody"><div class="toprow"><span class="time">${s.t}</span><span class="chip opt">Optional</span></div><h3>${s.n}</h3><p class="why">${s.why}</p>${dl?`<dl>${dl}</dl>`:''}${ln?`<div class="links">${ln}</div>`:''}${watch}</div></article>`;
+  return `<article class="stop opt"><div class="disc">${pic}</div><div class="sbody"><div class="toprow"><span class="time">${s.t}</span><span class="chip opt">Optional</span></div><h3>${s.n}</h3><p class="why">${s.why}</p>${dl?`<dl>${dl}</dl>`:''}${ln?`<div class="links">${ln}</div>`:''}${watch}</div></article>`;
 }
 
 const ICO={
@@ -551,7 +556,7 @@ const days=[
   {tpl:"t-delta"},
   {tpl:"t-alamo"},
   {drive:`DFW Rental Car Center to the Kimpton Harper · 25 mi · 35 min · <a href="https://www.google.com/maps/dir/?api=1&origin=2424+E+38th+St,+Dallas,+TX+75261&destination=714+Main+St,+Fort+Worth,+TX+76102&travelmode=driving" target="_blank" rel="noopener">Directions ↗</a>`},
-  {t:"About 1:30 AM",n:"Check in: Kimpton Harper",img:"town",lv:"none",stay:"2 nights",q:"Kimpton Harper Hotel Fort Worth",why:"A 1920s downtown office tower turned boutique hotel, a block from Sundance Square.",d:{},links:[]},
+  {t:"About 1:30 AM",n:"Check in: Kimpton Harper",img:"town",lv:"none",stay:"2 nights",q:"Kimpton Harper Hotel Fort Worth",nott:true,why:"A 1920s downtown office tower turned boutique hotel, a block from Sundance Square.",d:{},links:[]},
   {tpl:"t-kimpton"},
   {drive:"On foot · Kimpton Harper to the Omni · about 0.6 mi · 12 min"},
   {t:"10:00 AM",n:"Ash's pitch at the Omni Fort Worth",img:"town",lv:"none",must:true,stay:"",why:"Ash pitches at the Omni Fort Worth Hotel, by the convention center. An easy walk or a 3-minute drive from the Kimpton.",
@@ -702,9 +707,9 @@ days.forEach(dy=>{
     const pic=s.img.startsWith("photo:")?`<img src="${IMG[s.img.slice(6)]}" alt="${s.n}">`:art(s.img);
     const lv=LV[s.lv];
     const dl=Object.entries(s.d).map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join("");
-    const ln=s.links.map(([l,u])=>`<a href="${u}" target="_blank" rel="noopener">${l} ↗</a>`).join("");
-    const see=s.q?`<div class="see"><span>See it:</span><a href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(s.q)}" target="_blank" rel="noopener">Photos ↗</a><a href="https://www.tiktok.com/search?q=${encodeURIComponent(s.q)}" target="_blank" rel="noopener">TikTok ↗</a><a href="https://www.youtube.com/results?search_query=${encodeURIComponent(s.q)}" target="_blank" rel="noopener">YouTube ↗</a></div>`:'';
-    h+=`<article class="stop"><div class="disc">${pic}</div><div class="sbody"><div class="toprow"><span class="time">${s.t}</span>${s.opt?'<span class="chip opt">Optional</span>':''}${s.stay?`<span class="chip stay">⏱ ${s.stay}</span>`:''}${s.must?'<span class="chip must">Don\'t miss</span>':''}${s.lv!=="none"?`<span class="chip ${lv[0]}">${lv[1]}</span>`:''}</div><h3>${s.n}</h3><p class="why">${s.why}</p>${dl?`<dl>${dl}</dl>`:''}${ln?`<div class="links">${ln}</div>`:''}${see}</div></article>`;
+    const ln=s.links.map(([l,u])=>`<a href="${u}" target="_blank" rel="noopener">${l}</a>`).join("");
+    const see=s.q?`<div class="see"><span>See it:</span><a href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(s.q)}" target="_blank" rel="noopener">Photos ↗</a>${s.nott?'':`<a href="https://www.tiktok.com/search?q=${encodeURIComponent(s.q)}" target="_blank" rel="noopener">TikTok ↗</a>`}<a href="https://www.youtube.com/results?search_query=${encodeURIComponent(s.q)}" target="_blank" rel="noopener">YouTube ↗</a></div>`:'';
+    h+=`<article class="stop${s.opt?' opt':''}"><div class="disc">${pic}</div><div class="sbody"><div class="toprow"><span class="time">${s.t}</span>${s.opt?'<span class="chip opt">Optional</span>':''}${s.stay?`<span class="chip stay">⏱ ${s.stay}</span>`:''}${s.must?'<span class="chip must">Don\'t miss</span>':''}${s.lv!=="none"?`<span class="chip ${lv[0]}">${lv[1]}</span>`:''}</div><h3>${s.n}</h3><p class="why">${s.why}</p>${dl?`<dl>${dl}</dl>`:''}${ln?`<div class="links">${ln}</div>`:''}${see}</div></article>`;
   });
   if(dy.more)h+=`<div class="extra"><h4 class="exh">Optional around here</h4>${dy.more.map(card).join("")}</div>`;
   if(dy.eat)h+=`<div class="extra"><h4 class="exh">Other places to eat nearby</h4>${dy.eatNote?`<p class="daynote">${dy.eatNote}</p>`:''}<div class="menu">${dy.eat.map(eatItem).join("")}</div></div>`;

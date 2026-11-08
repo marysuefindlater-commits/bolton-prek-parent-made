@@ -81,8 +81,9 @@ dd{margin:0;min-width:0;overflow-wrap:anywhere}
 .links{display:flex;flex-wrap:wrap;gap:8px;font-size:13.5px;grid-column:1/-1;margin-top:4px}
 .links a{display:inline-flex;align-items:center;text-decoration:none;font:700 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:var(--paper);border:1.5px solid var(--ink);border-radius:999px;padding:8px 14px}
 .links a:hover{background:var(--ink);color:var(--paper)}
-.stop{background:var(--plan)!important;border-color:var(--line)}
-.stop.opt{background:var(--optbg)!important;border-style:dashed}
+.stop{background:var(--card)!important;border:1px solid var(--line);border-left:6px solid var(--rock);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.stop.opt{background:transparent!important;border:1.5px dashed var(--line);border-left:1.5px dashed var(--line);box-shadow:none;opacity:.8}
+.stop.opt .disc{transform:scale(.85);filter:saturate(.6)}
 .stop.opt h3,.stop.opt .why{color:var(--muted)}
 .see{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;font-size:13px;padding-top:6px;border-top:1px dashed var(--line)}
 .see span{font:700 10.5px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}

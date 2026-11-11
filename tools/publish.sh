@@ -25,6 +25,9 @@ if git diff --quiet && git diff --cached --quiet; then
   exit 0
 fi
 
+echo "==> stamping the build so saved copies refresh themselves"
+python3 -I tools/stamp.py
+
 echo "==> publishing"
 git add -A
 git commit -m "$MSG"

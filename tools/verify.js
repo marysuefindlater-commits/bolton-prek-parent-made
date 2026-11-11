@@ -43,6 +43,9 @@ const doc = {
   addEventListener(){}, body: el('body'), head: el('head'), title: ''
 };
 global.document = doc;
+global.location = { href:'https://example.test/', protocol:'https:', pathname:'/', hash:'', search:'', replace(){}, reload(){} };
+global.history = { replaceState(){} };
+global.sessionStorage = { getItem:()=>null, setItem(){} };
 global.window = { matchMedia: () => ({ matches:false, addEventListener(){} }), addEventListener(){},
                   location:{href:'x'}, setTimeout, setInterval:()=>0 };
 global.navigator = { userAgent: 'Mozilla/5.0 (iPhone)', language: 'en-US', platform:'iPhone', maxTouchPoints:5 };
@@ -80,8 +83,12 @@ ok(!anyLink || (sec && /class="go[ "]/.test(sec.innerHTML)),
            : 'no live item has a sign-up, so no button expected');
 if (APPLE_LIVE) ok(sec && sec.innerHTML.includes('signupgenius.com/go/10C0F4EAFAA2BA5FEC07-66633689-its'),
    'Apple Day sign-up link is in the rendered box');
-ok(sec && !/soaringowlsfoundation/.test(sec.innerHTML),
-   'Mahjong has moved out of the action box');
+/* Mahjong was moved out of the action box in October, then asked back in on
+   11 Nov as a parents call-out. Check it only while the entry is live. */
+const MJ_LIVE = ACTIONS.some(a => /Mahjong/.test(a.t.en) && TODAY_K <= a.until);
+ok(!MJ_LIVE || (sec && /soaringowlsfoundation/.test(sec.innerHTML)),
+   MJ_LIVE ? 'Mahjong Night is in the action box with its ticket link'
+           : 'Mahjong Night is not live, so none expected');
 ok(sec && !sec.classList.contains('hidden'), 'action box is visible today');
 ok(sec && /class=.garland/.test(sec.innerHTML) && /class=.mark/.test(sec.innerHTML)
    && (sec.innerHTML.match(/class="badge"/g)||[]).length === (sec.innerHTML.match(/<details/g)||[]).length,

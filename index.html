@@ -993,12 +993,25 @@ const A_WALL        = "<svg class='wall' viewBox='0 0 120 120' preserveAspectRat
    Edit this list when the room parents send a new round of sign-ups. */
 const ACTIONS = [
   {
+    until:"2026-12-02",
+    when:{en:"Wed Dec 2", es:"Miercoles 2 de diciembre"},
+    t:{en:"Field trip to the Center for Puppetry Arts",
+       es:"Excursion al Center for Puppetry Arts"},
+    body:{en:"<p>The class goes to the <b>Center for Puppetry Arts on Wednesday, Dec 2</b>. Both parent volunteer spots are already filled.</p><p><b>Field trips are paid for on School Cash Online.</b> The cost for this one and the bus times have not been posted yet, so watch ClassDojo.</p>",
+          es:"<p>La clase va al <b>Center for Puppetry Arts el miercoles 2 de diciembre</b>. Los dos lugares de voluntarios ya estan tomados.</p><p><b>Las excursiones se pagan en School Cash Online.</b> Todavia no han publicado el costo de esta ni la hora del autobus, asi que este pendiente de ClassDojo.</p>"},
+    need:null,
+    tail:{en:"<p><a href='https://apsk12.schoolcashonline.com'>Pay for the trip on School Cash Online</a></p>",
+          es:"<p><a href='https://apsk12.schoolcashonline.com'>Pagar la excursion en School Cash Online</a></p>"},
+    link:null, cta:null,
+    badge:"apple"
+  },
+  {
     until:"2026-12-03",
     when:{en:"Thu Dec 3", es:"Jueves 3 de diciembre"},
     t:{en:"Alliance Theatre trip: parent volunteers needed",
        es:"Excursion al Alliance Theatre: se necesitan voluntarios"},
-    body:{en:"<p>The class goes to the <b>Alliance Theatre on Thursday, Dec 3</b>, and the room parents are looking for parents to come along. The sign-up is open now.</p><p><b>Field trips are paid for on School Cash Online.</b> The cost for this one and the bus times have not been posted yet, so watch ClassDojo.</p><p>The Dec 2 trip to the Center for Puppetry Arts is already covered, both spots taken.</p>",
-          es:"<p>La clase va al <b>Alliance Theatre el jueves 3 de diciembre</b>, y las mamas y papas del salon buscan padres que los acompanen. La inscripcion ya esta abierta.</p><p><b>Las excursiones se pagan en School Cash Online.</b> Todavia no han publicado el costo de esta ni la hora del autobus, asi que este pendiente de ClassDojo.</p><p>La excursion del 2 de diciembre al Center for Puppetry Arts ya esta cubierta, los dos lugares estan tomados.</p>"},
+    body:{en:"<p>The class goes to the <b>Alliance Theatre on Thursday, Dec 3</b>, and the room parents are looking for parents to come along. The sign-up is open now.</p><p><b>Field trips are paid for on School Cash Online.</b> The cost for this one and the bus times have not been posted yet, so watch ClassDojo.</p>",
+          es:"<p>La clase va al <b>Alliance Theatre el jueves 3 de diciembre</b>, y las mamas y papas del salon buscan padres que los acompanen. La inscripcion ya esta abierta.</p><p><b>Las excursiones se pagan en School Cash Online.</b> Todavia no han publicado el costo de esta ni la hora del autobus, asi que este pendiente de ClassDojo.</p>"},
     need:null,
     tail:{en:"<p><a href='https://apsk12.schoolcashonline.com'>Pay for the trip on School Cash Online</a></p>",
           es:"<p><a href='https://apsk12.schoolcashonline.com'>Pagar la excursion en School Cash Online</a></p>"},
@@ -1015,18 +1028,6 @@ const ACTIONS = [
           es:"<p>La escuela esta armando canastas de comida para familias de Bolton que las necesiten antes del receso. Mande las cosas con su hijo cualquier dia.</p><p><b>Donde se deja:</b> la caja de la entrada, o los ninos pueden dejarlas atras, junto a la cafeteria.</p><p><b>Lo que piden:</b> atun, pollo o salmon en lata, guisos y sopas en lata, crema de cacahuate u otra crema de nueces, frijoles y lentejas secos o en lata, pasta integral, arroz, avena y cereales calientes, verduras en lata bajas en sodio, fruta en lata en jugo o almibar ligero, leche de larga duracion o alternativa sin lacteos, aceite y especias, y botanas para ninos como barras de granola y paquetes de snacks.</p>"},
     need:null, tail:null, link:null, cta:null,
     badge:"apple"
-  },
-  {
-    until:"2026-11-20",
-    when:{en:"Open now, about 7 minutes", es:"Abierta ahora, unos 7 minutos"},
-    t:{en:"Family Engagement Survey from the school",
-       es:"Encuesta de participacion familiar de la escuela"},
-    body:{en:"<p>The school is asking every parent and caregiver to fill this in. It takes about seven minutes. No closing date was given, so sooner is safer.</p>",
-          es:"<p>La escuela pide que todos los padres y cuidadores la contesten. Toma unos siete minutos. No dieron fecha limite, asi que es mejor hacerlo pronto.</p>"},
-    need:null, tail:null,
-    link:"https://survey.co1.qualtrics.com/jfe/form/SV_bacBeUdlR7er4ns",
-    cta:{en:"Take the survey", es:"Contestar la encuesta"},
-    tone:"blue", icon:"book", badge:"fall"
   },
   {
     until:"2026-11-12",

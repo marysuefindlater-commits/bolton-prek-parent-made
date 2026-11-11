@@ -6,7 +6,11 @@ let fail = 0;
 const ok = (c, m) => { console.log((c ? '  ok   ' : '  FAIL ') + m); if (!c) fail++; };
 
 // ---- 1. the whole script must parse ----------------------------------
-const m = html.match(/<script>([\s\S]*)<\/script>/);
+/* The page has more than one script block now: a small one in the head that
+   checks the build version, and the main one. Pick the main one. */
+const blocks = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(x => x[1]);
+const m = [null, blocks.find(b => b.includes('const DATA'))];
+if (!m[1]) { console.log('FAIL could not find the main script block'); process.exit(1); }
 if (!m) { console.log('FAIL no script block'); process.exit(1); }
 const js = m[1];
 try { new Function(js); console.log('  ok   full script parses'); }

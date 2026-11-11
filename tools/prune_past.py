@@ -65,7 +65,10 @@ for n in ["CAL_CLOSED", "CAL_EARLY", "CAL_TRIPS", "CAL_DRESS"]:
     prune_map(n)
 
 # ---- only write if the result still parses ---------------------------------
-js = re.search(r"<script>([\s\S]*)</script>", s).group(1)
+# the page has a small version-check script in the head as well as the main
+# one, so pick the block that actually holds the data
+blocks = re.findall(r"<script>([\s\S]*?)</script>", s)
+js = next(b for b in blocks if "const DATA" in b)
 r = subprocess.run(["node", "-e",
                     "let src='';process.stdin.on('data',d=>src+=d).on('end',()=>{"
                     "try{new Function(src);console.log('  script parses')}"

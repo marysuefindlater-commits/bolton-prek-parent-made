@@ -23,7 +23,9 @@ catch (e) {
 const store = {};
 function el(id) {
   if (!store[id]) store[id] = {
-    id, innerHTML: '', textContent: '', value: '', placeholder: '', style: {},
+    id, innerHTML: '', textContent: '', value: '', placeholder: '',
+    /* real elements always have these; the page sets CSS variables per section */
+    style: { setProperty(){}, removeProperty(){}, getPropertyValue(){return ''} },
     classList: { _s: new Set(), add(c){this._s.add(c)}, remove(c){this._s.delete(c)},
                  contains(c){return this._s.has(c)}, toggle(c){this._s.has(c)?this._s.delete(c):this._s.add(c)} },
     appendChild(){}, addEventListener(){}, removeAttribute(){}, setAttribute(){},

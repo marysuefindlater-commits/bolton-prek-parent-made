@@ -237,6 +237,25 @@ details.todayfit summary::after{content:"+";font-size:22px}
 details.todayfit[open] summary::after{content:"\2212"}
 .tfbody{padding:0 12px 12px;display:grid;gap:10px}
 .tfbody img{display:block;width:100%;max-width:560px;height:auto;margin:0 auto;background:#fff}
+.splitter{border:2px solid var(--ink);background:var(--card);padding:16px;display:grid;gap:14px}
+.owe{font:800 24px/1.15 var(--display);letter-spacing:.04em;text-transform:uppercase;background:var(--ink);color:var(--paper);padding:14px 16px}
+.owe small{display:block;font:500 13px/1.4 var(--body);letter-spacing:0;text-transform:none;opacity:.85;margin-top:4px}
+.xrow{border-bottom:1px dashed var(--line);padding:10px 0 12px;display:grid;gap:8px}
+.xtop{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.xtop b{font:800 18px/1.2 var(--display);letter-spacing:.04em;text-transform:uppercase}
+.xtop .amt{margin-left:auto;font:800 18px/1 var(--display)}
+.xtop .who{font-size:13px;color:var(--muted)}
+.xdel{border:0;background:none;color:var(--muted);font-size:20px;cursor:pointer;padding:0 4px;line-height:1}
+.xsl{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;font-size:14px;font-variant-numeric:tabular-nums}
+.xsl input{width:100%;accent-color:var(--rock);height:28px}
+.xsl span:last-child{text-align:right}
+@media (max-width:600px){.xsl{grid-template-columns:1fr 1fr}.xsl input{grid-column:1/-1;grid-row:1;height:36px}}
+.xsl span{white-space:nowrap}
+.xadd{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px}
+.xadd input,.xadd select{font:500 16px/1.2 var(--body);padding:10px;border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);min-width:0}
+.xadd button{font:800 15px/1 var(--display);letter-spacing:.1em;text-transform:uppercase;padding:10px 14px;border:2px solid var(--ink);background:var(--rock);color:#fff;cursor:pointer}
+.xnote{margin:0;font-size:13px;color:var(--muted)}
+@media (max-width:600px){.xadd{grid-template-columns:1fr 1fr}.xadd #xn{grid-column:1/-1}.xadd button{grid-column:1/-1;padding:14px}.owe{font-size:21px}}
 /* ---- Mobile ---- */
 html{-webkit-text-size-adjust:100%}
 .wrap{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right));padding-bottom:max(60px,env(safe-area-inset-bottom))}
@@ -576,11 +595,20 @@ html{-webkit-text-size-adjust:100%}
 <div id="panel-exp" role="tabpanel" aria-labelledby="tab-exp" hidden>
   <section style="margin-top:32px">
     <div class="head"><span class="eyebrow">Who pays for what</span><h2>Expenses</h2>
-    <p class="lede">Amounts and the running total of what Ash owes live in the trip spreadsheet.</p></div>
+    <p class="lede">Add shared costs as you go: gas, groceries, dinners.</p></div>
+    <div class="splitter" id="splitter">
+      <div class="owe" id="owe"></div>
+      <div id="xlist"></div>
+      <form class="xadd" id="xadd">
+        <input id="xn" placeholder="What (e.g. Dinner at Starlight)" required>
+        <input id="xa" type="number" inputmode="decimal" step="0.01" min="0" placeholder="$ Amount" required>
+        <select id="xp"><option value="ms">Mary Sue paid</option><option value="ash">Ash paid</option></select>
+        <button type="submit">Add expense</button>
+      </form>
+      <p class="xnote">Saved on this device. Drag a slider to change how that expense is split.</p>
+    </div>
+    <h3 class="exh" style="margin-top:28px">Not split</h3>
     <div class="exp">
-      <div><h3>Split 50/50</h3><ul>
-        <li>The Summit, Wed + Thu: <b>$714.87</b><small>After the $178.21 refund · Mary Sue paid · Ash owes <b>$357.44</b></small></li>
-      </ul></div>
       <div><h3>Mary Sue · not split</h3><p style="margin:-4px 0 10px;font-size:13.5px;color:var(--muted)">Paid for with CC points</p><ul>
         <li>Kimpton Harper, Fort Worth</li>
         <li>Hotel Saint George, Marfa<small>Chase card</small></li>
@@ -852,6 +880,28 @@ const tabs=[["tab-plan","panel-plan"],["tab-pack","panel-pack"],["tab-fit","pane
 function show(which){tabs.forEach(([t,p])=>{const on=t===which;document.getElementById(t).setAttribute("aria-selected",on);document.getElementById(p).hidden=!on});try{localStorage.setItem("bb-tab",which)}catch(e){}}
 tabs.forEach(([t])=>document.getElementById(t).addEventListener("click",()=>show(t)));
 if(location.hash==="#packing")show("tab-pack");else if(location.hash==="#expenses")show("tab-exp");else if(location.hash==="#outfits")show("tab-fit");else{try{const t=localStorage.getItem("bb-tab");if(t&&document.getElementById(t))show(t)}catch(e){}}
+
+(function(){
+  const KEY="bb-expenses-v1";
+  const seed=[{n:"The Summit, Wed + Thu (after $178.21 refund)",a:714.87,p:"ms",s:50}];
+  let X;try{X=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+  if(!Array.isArray(X))X=seed.slice();
+  const $=id=>document.getElementById(id),f=v=>"$"+v.toFixed(2);
+  const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(X))}catch(e){}}
+  function total(){let net=0,sum=0,ms=0,ash=0;X.forEach(x=>{const m=x.a*x.s/100,h=x.a-m;sum+=x.a;ms+=m;ash+=h;net+=x.p==="ms"?h:-m});
+    const who=Math.abs(net)<0.005?"All square":(net>0?"Ash owes Mary Sue "+f(net):"Mary Sue owes Ash "+f(-net));
+    $("owe").innerHTML=who+`<small>Total split: ${f(sum)} · Mary Sue's share ${f(ms)} · Ash's share ${f(ash)}</small>`;}
+  function render(){
+    $("xlist").innerHTML=X.map((x,i)=>`<div class="xrow"><div class="xtop"><b>${esc(x.n)}</b><span class="who">${x.p==="ms"?"Mary Sue paid":"Ash paid"}</span><span class="amt">${f(x.a)}</span><button class="xdel" data-i="${i}" aria-label="Remove ${esc(x.n)}">×</button></div>
+      <div class="xsl"><span id="ms${i}">Mary Sue ${x.s}% · ${f(x.a*x.s/100)}</span><input type="range" min="0" max="100" step="5" value="${x.s}" data-i="${i}" aria-label="Mary Sue's share of ${esc(x.n)}"><span id="ah${i}">Ash ${100-x.s}% · ${f(x.a*(100-x.s)/100)}</span></div></div>`).join("")||'<p class="xnote">No expenses yet.</p>';
+    total();}
+  $("xlist").addEventListener("input",e=>{const i=e.target.dataset.i;if(i===undefined||e.target.type!=="range")return;const x=X[i];x.s=+e.target.value;
+    $("ms"+i).textContent=`Mary Sue ${x.s}% · ${f(x.a*x.s/100)}`;$("ah"+i).textContent=`Ash ${100-x.s}% · ${f(x.a*(100-x.s)/100)}`;total();save();});
+  $("xlist").addEventListener("click",e=>{const b=e.target.closest(".xdel");if(!b)return;X.splice(+b.dataset.i,1);save();render();});
+  $("xadd").addEventListener("submit",e=>{e.preventDefault();const a=parseFloat($("xa").value);if(!(a>=0))return;X.push({n:$("xn").value.trim()||"Expense",a,p:$("xp").value,s:50});$("xn").value="";$("xa").value="";save();render();});
+  render();
+})();
 </script>
 </body>
 </html>

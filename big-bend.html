@@ -366,7 +366,6 @@ html{-webkit-text-size-adjust:100%}
 <div class="tabs" role="tablist" aria-label="Guide sections">
   <button role="tab" id="tab-plan" aria-selected="true" aria-controls="panel-plan">Itinerary</button>
   <button role="tab" id="tab-pack" aria-selected="false" aria-controls="panel-pack">Packing list</button>
-  <button role="tab" id="tab-fit" aria-selected="false" aria-controls="panel-fit">Outfits</button>
   <button role="tab" id="tab-exp" aria-selected="false" aria-controls="panel-exp">Expenses</button>
 </div>
 <div id="panel-plan" role="tabpanel" aria-labelledby="tab-plan">
@@ -587,12 +586,6 @@ html{-webkit-text-size-adjust:100%}
     <p class="lede">Desert in late November swings from the 40s at dawn to the 70s by afternoon, so pack layers. Power and Wi-Fi at The Summit can drop out, and cell service is spotty everywhere.</p></div>
     <div class="packbar"><span id="packcount"></span><button type="button" id="packreset">Clear ticks</button></div>
     <div class="pack" id="packlist"></div>
-  </section>
-</div>
-<div id="panel-fit" role="tabpanel" aria-labelledby="tab-fit" hidden>
-  <section style="margin-top:32px">
-    <div class="head"><span class="eyebrow">Mix and match</span><h2>Outfits</h2></div>
-    <div class="fits" id="fits"></div>
   </section>
 </div>
 <div id="panel-exp" role="tabpanel" aria-labelledby="tab-exp" hidden>
@@ -878,11 +871,10 @@ pl.addEventListener("change",e=>{packSaved[e.target.id]=e.target.checked;try{loc
 document.getElementById("packreset").addEventListener("click",()=>{packSaved={};try{localStorage.removeItem("bb-pack")}catch(err){}pl.querySelectorAll("input").forEach(i=>i.checked=false);packCount()});
 
 const FITN=["Red + denim", "White tee + red bandana", "Brown pants + denim jacket", "Travel day", "White tee + green bandana + boots", "Mustard jacket + bolo", "White tee + black pants + bolo", "Scarf-print fringe top + boots", "Night out: turquoise fringe"];
-document.getElementById("fits").innerHTML=FITS.map((src,i)=>`<figure class="fit"><img src="${src}" alt="Outfit ${i+1}: ${FITN[i]}" loading="lazy"><figcaption><b>${i+1}</b>${FITN[i]}</figcaption></figure>`).join("");
-const tabs=[["tab-plan","panel-plan"],["tab-pack","panel-pack"],["tab-fit","panel-fit"],["tab-exp","panel-exp"]];
+const tabs=[["tab-plan","panel-plan"],["tab-pack","panel-pack"],["tab-exp","panel-exp"]];
 function show(which){tabs.forEach(([t,p])=>{const on=t===which;document.getElementById(t).setAttribute("aria-selected",on);document.getElementById(p).hidden=!on});try{localStorage.setItem("bb-tab",which)}catch(e){}}
 tabs.forEach(([t])=>document.getElementById(t).addEventListener("click",()=>show(t)));
-if(location.hash==="#packing")show("tab-pack");else if(location.hash==="#expenses")show("tab-exp");else if(location.hash==="#outfits")show("tab-fit");else{try{const t=localStorage.getItem("bb-tab");if(t&&document.getElementById(t))show(t)}catch(e){}}
+if(location.hash==="#packing")show("tab-pack");else if(location.hash==="#expenses")show("tab-exp");else{try{const t=localStorage.getItem("bb-tab");if(t&&document.getElementById(t))show(t)}catch(e){}}
 
 (function(){
   const KEY="bb-expenses-v1";

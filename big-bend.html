@@ -203,6 +203,12 @@ details.rtd .rt{margin:0;padding:0 12px 12px}
 .ticket{grid-template-columns:1fr}
 button.dayhead{width:100%;background:none;border:0;border-bottom:3px solid var(--ink);color:inherit;text-align:left;cursor:pointer;padding:0 0 8px;font:inherit}
 .dayhead .tog{font:700 11px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;border:1.5px solid var(--ink);padding:5px 8px;align-self:center}
+.stop.done{display:flex;align-items:center;gap:10px;padding:8px 14px;opacity:.55;cursor:pointer;border-left-color:var(--line)!important;box-shadow:none}
+.stop.done .disc,.stop.done .why,.stop.done dl,.stop.done .links,.stop.done .see,.stop.done .toprow .chip,.stop.done .sbody>*:not(.toprow):not(h3){display:none!important}
+.stop.done .sbody{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.stop.done h3{font-size:15px;margin:0;text-decoration:line-through}
+.stop.done .toprow::after{content:"Done ✓ tap to show";font:700 10px/1 var(--body);letter-spacing:.1em;text-transform:uppercase;margin-left:6px}
+.drive.done,.inday.done{display:none}
 .day.closed{margin-top:18px}
 .day.closed .daybody{display:none}
 .day.closed .dayhead .dt{font-size:clamp(24px,4vw,32px)}
@@ -828,13 +834,13 @@ days.forEach(dy=>{
   if(dy.note)h+=`<p class="daynote">${dy.note}</p>`;
   dy.stops.forEach(s=>{
     if(s.drive){h+=`<div class="drive"><span>${s.drive}</span></div>`;return}
-    if(s.tpl){h+=`<div class="inday">${document.getElementById(s.tpl).innerHTML}</div>`;return}
+    if(s.tpl){h+=`<div class="inday"${["t-delta","t-sw","t-alamo"].includes(s.tpl)?' data-follow="1"':''}>${document.getElementById(s.tpl).innerHTML}</div>`;return}
     const pic=s.img.startsWith("photo:")?`<img src="${IMG[s.img.slice(6)]}" alt="${s.n}">`:art(s.img);
     const lv=LV[s.lv];
     const dl=Object.entries(s.d).map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join("");
     const ln=s.links.map(([l,u])=>`<a href="${u}" target="_blank" rel="noopener">${l}</a>`).join("");
     const see=s.q?`<div class="see"><span>See it:</span><a href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(s.q)}" target="_blank" rel="noopener">Photos ↗</a>${s.nott?'':`<a href="https://www.tiktok.com/search?q=${encodeURIComponent(s.q)}" target="_blank" rel="noopener">TikTok ↗</a>`}<a href="https://www.youtube.com/results?search_query=${encodeURIComponent(s.q)}" target="_blank" rel="noopener">YouTube ↗</a></div>`:'';
-    h+=`<article class="stop${s.opt?' opt':''}"><div class="disc">${pic}</div><div class="sbody"><div class="toprow"><span class="time">${s.t}</span>${s.opt?'<span class="chip opt">Optional</span>':''}${s.stay?`<span class="chip stay">⏱ ${s.stay}</span>`:''}${s.must?'<span class="chip must">Don\'t miss</span>':''}${s.lv!=="none"?`<span class="chip ${lv[0]}">${lv[1]}</span>`:''}</div><h3>${s.n}</h3><p class="why">${s.why}</p>${dl?`<dl>${dl}</dl>`:''}${ln?`<div class="links">${ln}</div>`:''}${see}</div></article>`;
+    h+=`<article class="stop${s.opt?' opt':''}" data-t="${s.t}" data-stay="${s.stay||''}"><div class="disc">${pic}</div><div class="sbody"><div class="toprow"><span class="time">${s.t}</span>${s.opt?'<span class="chip opt">Optional</span>':''}${s.stay?`<span class="chip stay">⏱ ${s.stay}</span>`:''}${s.must?'<span class="chip must">Don\'t miss</span>':''}${s.lv!=="none"?`<span class="chip ${lv[0]}">${lv[1]}</span>`:''}</div><h3>${s.n}</h3><p class="why">${s.why}</p>${dl?`<dl>${dl}</dl>`:''}${ln?`<div class="links">${ln}</div>`:''}${see}</div></article>`;
   });
   if(dy.more)h+=`<div class="extra"><h4 class="exh">Optional around here</h4>${dy.more.map(card).join("")}</div>`;
   if(dy.eat)h+=`<div class="extra"><h4 class="exh">Other places to eat nearby</h4>${dy.eatNote?`<p class="daynote">${dy.eatNote}</p>`:''}<div class="menu">${dy.eat.map(eatItem).join("")}</div></div>`;
@@ -846,6 +852,19 @@ let dayOpen={};try{dayOpen=JSON.parse(localStorage.getItem("bb-days")||"{}")}cat
 function setDay(sec,open){sec.classList.toggle("closed",!open);const b=sec.querySelector(".dayhead");b.setAttribute("aria-expanded",open);b.querySelector(".tog").textContent=open?"Hide":"Show"}
 days.forEach(dy=>{const sec=document.getElementById(dy.id);setDay(sec,dy.id in dayOpen?dayOpen[dy.id]:dayKey[dy.id]>=todayKey);
   sec.querySelector(".dayhead").addEventListener("click",()=>{const open=sec.classList.contains("closed");setDay(sec,open);dayOpen[dy.id]=open;try{localStorage.setItem("bb-days",JSON.stringify(dayOpen))}catch(e){}})});
+
+function tmin(t){const m=/(\d{1,2}):(\d{2})\s*(AM|PM)/i.exec(t||"");if(!m)return null;let h=+m[1]%12;if(/PM/i.test(m[3]))h+=12;return h*60+ +m[2]}
+function markDone(){const n=new Date(),tk=n.getFullYear()*10000+(n.getMonth()+1)*100+n.getDate(),nm=n.getHours()*60+n.getMinutes();
+ days.forEach(dy=>{const sec=document.getElementById(dy.id);if(dayKey[dy.id]!==tk)return;
+  const els=[...sec.querySelectorAll(".daybody > .stop,.daybody > .drive,.daybody > .inday")];
+  let last=null;const st=els.map(e=>{if(e.classList.contains("stop")){const v=tmin(e.dataset.t);if(v!=null)last=v;return last}return null});
+  const isDone=i=>{const s0=st[i];if(s0==null)return false;let nx=null;for(let j=i+1;j<els.length;j++){if(st[j]!=null&&st[j]>s0){nx=st[j];break}}const sy=els[i].dataset.stay||"";const hm=/([\d.]+)\s*hr/.exec(sy),mm=/(\d+)\s*min/.exec(sy);let dur=(hm?parseFloat(hm[1])*60:0)+(mm?+mm[1]:0);if(!dur||/round trip|night/.test(sy))dur=120;let end=s0+dur;if(nx!=null&&nx<end)end=nx;return nm>=end};
+  let prevDone=false;
+  els.forEach((e,i)=>{if(e.classList.contains("stop")){if(e.classList.contains("peek"))return;prevDone=isDone(i);e.classList.toggle("done",prevDone)}
+   else if(e.classList.contains("drive")){let nd=false;for(let j=i+1;j<els.length;j++){if(els[j].classList.contains("stop")){nd=st[j]!=null&&nm>=st[j];break}}e.classList.toggle("done",prevDone&&nd)}
+   else if(e.dataset.follow)e.classList.toggle("done",prevDone)})})}
+document.getElementById("days").addEventListener("click",e=>{const st=e.target.closest(".stop.done");if(st&&!e.target.closest("a")){st.classList.remove("done");st.classList.add("peek")}});
+markDone();setInterval(markDone,60000);
 document.querySelectorAll(".daynav a").forEach(a=>a.addEventListener("click",()=>{const sec=document.getElementById(a.getAttribute("href").slice(1));if(sec&&sec.classList.contains("closed"))setDay(sec,true)}));
 
 const packing=[

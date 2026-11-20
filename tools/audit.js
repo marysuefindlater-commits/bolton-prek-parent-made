@@ -209,9 +209,12 @@ ok(ics.bad.length === 0, 'every exported event has a title and sane dates');
 ok(ics.past === 0, 'nothing already past gets exported');
 
 H('search');
-const probes = [['sick','sick'],['pickup','pick'],['thanksgiving','thanksgiving'],['mystery reader','mystery'],['feast','feast'],
+/* The Feast and the Turkey Disguise Project were November one-offs and have
+   rolled off, so their probes went with them. Probes here should name things
+   that stay on the page, not whatever is in season. */
+const probes = [['sick','sick'],['pickup','pick'],['thanksgiving','thanksgiving'],['mystery reader','mystery'],
                 ['spring break','break'],['who do i email','email'],['nap','nap'],
-                ['supplies','suppl'],['turkey','disguise'],['aftercare','psc']];
+                ['supplies','suppl'],['field trip','trip'],['screen time','hour'],['aftercare','psc']];
 for (const [q, expect] of probes) {
   const n = await p.evaluate(async (q) => {
     const el = document.getElementById('q');

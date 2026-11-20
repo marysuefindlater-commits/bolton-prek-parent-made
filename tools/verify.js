@@ -78,7 +78,12 @@ ACTIONS.forEach(a => {
   ok(!!a.until && /^\d{4}-\d{2}-\d{2}$/.test(a.until), 'action "' + a.t.en.slice(0,28) + '" has a valid until date');
   ok(!!a.t.en && !!a.t.es, '  has EN and ES title');
   ok(!!a.body.en && !!a.body.es, '  has EN and ES body');
-  if (a.link) ok(/^https:\/\//.test(a.link) && !!a.cta.en && !!a.cta.es, '  link is https and has a bilingual button label');
+  // https everywhere, with one exception: tinyAPS.com is the district's own
+  // shortener and APS mails the links out as plain http. Retyping a school
+  // link as https risks sending families somewhere that does not answer, so
+  // that one host is allowed through as the school published it.
+  if (a.link) ok(/^(https:\/\/|http:\/\/tinyAPS\.com\/)/.test(a.link) && !!a.cta.en && !!a.cta.es,
+                 '  link is https (or the APS shortener) and has a bilingual button label');
 });
 const sec = store['actions'];
 const anyLink = ACTIONS.some(a => a.link && TODAY_K <= a.until);
@@ -132,9 +137,22 @@ const past = rEN.filter(r => r.until < today);
 ok(past.length === 0, 'no past-dated rows left' + (past.length ? ': ' + past.map(p=>p.label).join(', ') : ''));
 if (APPLE_LIVE) ok(rEN.some(r => /Oct 19-21/.test(r.label)), 'Oct 19-21 apple drop-off row is on the calendar');
 if (APPLE_LIVE) ok(rES.some(r => /19-21 oct/.test(r.label)), 'Spanish apple drop-off row is on the calendar');
-ok(/soaringowlsfoundation\.com\/mahjong/.test(calEN.h) && /soaringowlsfoundation\.com\/mahjong/.test(calES.h),
-   'Mahjong ticket link is on the calendar card in both languages');
-ok(/Lite bites and drinks/.test(calEN.h), 'Mahjong calendar row carries the full description');
+/* Mahjong Night was Nov 11 and has rolled off the calendar, so these two only
+   apply while the row is still live. */
+if (MJ_LIVE) {
+  ok(/soaringowlsfoundation\.com\/mahjong/.test(calEN.h) && /soaringowlsfoundation\.com\/mahjong/.test(calES.h),
+     'Mahjong ticket link is on the calendar card in both languages');
+  ok(/Lite bites and drinks/.test(calEN.h), 'Mahjong calendar row carries the full description');
+}
+
+/* Literacy Night, Dec 3: free, Pre-K only, and it needs an RSVP. */
+const LN_LIVE = ACTIONS.some(a => /Literacy Night/.test(a.t.en) && TODAY_K <= a.until);
+if (LN_LIVE) {
+  ok(/tinyAPS\.com/.test(calEN.h) && /tinyAPS\.com/.test(calES.h),
+     'Literacy Night RSVP link is on the calendar card in both languages');
+  ok(/Literacy Express/.test(calEN.h) && /Literacy Express/.test(calES.h),
+     'Literacy Night is named on the calendar in both languages');
+}
 
 // ---- install button placement -----------------------------------------
 const hdr = html.slice(html.indexOf('<header>'), html.indexOf('</header>'));
